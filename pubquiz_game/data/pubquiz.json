@@ -1,0 +1,100 @@
+{
+    "chapters": [
+        {
+            "title": "Wer hat das gesagt?",
+            "timelimit": 15,
+            "questions": [
+                {
+                    "question": "«Kunst ist, aus Nichts etwas zu machen und es zu verkaufen.»?",
+                    "answers": [
+                        {
+                            "text": "Kanye West",
+                            "correct": false
+                        },
+                        {
+                            "text": "Frank Zappa",
+                            "correct": true
+                        },
+                        {
+                            "text": "Niki de Saint Phalle",
+                            "correct": false
+                        },
+                        {
+                            "text": "Steff la cheffe",
+                            "correct": false
+                        }
+                    ]
+                },
+                {
+                    "question": "«Wer immer tut, was er schon kann, bleibt immer das, was er schon ist.»?",
+                    "answers": [
+                        {
+                            "text": "Henry Ford",
+                            "correct": true
+                        },
+                        {
+                            "text": "Isaac Newton",
+                            "correct": false
+                        },
+                        {
+                            "text": "Coco Chanel",
+                            "correct": false
+                        },
+                        {
+                            "text": "Alain Berset",
+                            "correct": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "90s",
+            "timelimit": 10,
+            "questions": [
+                {
+                    "question": "In welcher Fernsehserie spielte Steve Urkel?",
+                    "answers": [
+                        {
+                            "text": "Alle unter einem Dach",
+                            "correct": true
+                        },
+                        {
+                            "text": "Eine schrecklich nette Familie",
+                            "correct": false
+                        },
+                        {
+                            "text": "Wer ist hier der Boss?",
+                            "correct": false
+                        },
+                        {
+                            "text": "Wunderbare Jahre",
+                            "correct": false
+                        }
+                    ]
+                },
+                {
+                    "question": "Wann konntest du das erste Mal mit Euro bar bezahlen?",
+                    "answers": [
+                        {
+                            "text": "2002",
+                            "correct": true
+                        },
+                        {
+                            "text": "1996",
+                            "correct": false
+                        },
+                        {
+                            "text": "1998",
+                            "correct": false
+                        },
+                        {
+                            "text": "2004",
+                            "correct": false
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
