@@ -6,6 +6,7 @@ defmodule PubQuizGame.Game do
   alias PubQuizGame.Answer
   alias PubQuizGame.History
   alias PubQuizGame.Utils
+  alias PubQuizGame.Player
 
   @filename "../../data/pubquiz.json"
 
@@ -15,8 +16,8 @@ defmodule PubQuizGame.Game do
   @doc """
   Creates a new Game.
   """
-  def init() do
-    PubQuizGame.Game.read_from_json(@filename)
+  def init(filename) do
+    PubQuizGame.Game.read_from_json(filename)
     |> elem(1)
     |> (&(Map.put(&1, :history, History.init(&1)))).()
   end
@@ -48,7 +49,6 @@ defmodule PubQuizGame.Game do
 
   defp update_question_index(game) do
     current_chapter = Enum.at(game.chapters, game.current_chapter)
-    IO.inspect current_chapter
     case Utils.is_last(current_chapter.questions, game.current_question) do
       true -> {:last_section_done, %Game{game | current_question: 0}}
       false -> {:other_section_done, %Game{game | current_question: game.current_question + 1}}
@@ -66,14 +66,21 @@ defmodule PubQuizGame.Game do
     end
   end
 
-  defp answer_question(game, player, answer) do
+  def answer_question(game, %Player{} = player, answer) do
     is_answer_correct(game, answer)
-    |> update_score(player, game)
+    |> update_history(player, game)
   end
 
   defp is_answer_correct(game, answer) do
-    question = get_current_question(game)
-    question.correct == answer
+    correct_index = get_current_question(game).answers
+    |> find_answer_index(fn(answer) -> answer.correct end)
+    |> List.first
+    correct_index == answer
+  end
+
+  # https://stackoverflow.com/questions/18551814/find-indexes-from-list-in-elixir
+  defp find_answer_index(collection, function) do
+    Enum.filter_map(Enum.with_index(collection), fn({x, _y}) -> function.(x) end, &(elem(&1, 1)))
   end
 
   defp get_current_chapter(game) do
@@ -85,8 +92,16 @@ defmodule PubQuizGame.Game do
     |> (&(Enum.at(&1.questions, game.current_question))).()
   end
 
-  defp update_score(correct, player, game) do
+  defp update_history(correct, player, game) do
+    chapter_history = Enum.at(game.history, game.current_chapter)
     
+    question_score = Enum.at(chapter_history, game.current_question)
+    updated_question_score = Map.put(question_score, player.name, correct)
+
+    chapter_history
+    |> List.replace_at(game.current_question, updated_question_score)
+    |> (&(List.replace_at(game.history, game.current_chapter, &1))).()
+    |> (&(%Game{game| history: &1})).()
   end
 
   # next_question

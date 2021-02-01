@@ -7,9 +7,7 @@ defmodule PubQuizGame.History do
     """
   
     def init(game) do
-      history = for chapter <- game.chapters, do: create_question_history(chapter.questions, [])
-      IO.inspect(history)
-      history
+      for chapter <- game.chapters, do: create_question_history(chapter.questions, [])
     end
 
     defp create_question_history([head|tail], questions_history) do
