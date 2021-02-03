@@ -1,7 +1,7 @@
-defmodule PubQuizGameTest do
+defmodule PubquizGameTest do
   use ExUnit.Case
 
-  alias PubQuizGame.Game
+  alias PubquizGame.Game
 
   @filename "../../data/pubquiz_test.json"
   # doctest PubquizGame

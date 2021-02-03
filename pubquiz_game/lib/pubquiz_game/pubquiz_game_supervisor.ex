@@ -1,11 +1,11 @@
-defmodule PubQuizGame.GameSupervisor do
+defmodule PubquizGame.GameSupervisor do
   @moduledoc """
   A supervisor that starts `GameServer` processes dynamically.
   """
 
   use DynamicSupervisor
 
-  alias PubQuizGame.GameServer
+  alias PubquizGame.GameServer
 
   def start_link(_arg) do
     DynamicSupervisor.start_link(__MODULE__, :ok, name: __MODULE__)

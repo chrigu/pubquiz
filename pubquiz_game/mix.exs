@@ -1,4 +1,4 @@
-defmodule PubQuizGame.MixProject do
+defmodule PubquizGame.MixProject do
   use Mix.Project
 
   def project do
@@ -15,7 +15,7 @@ defmodule PubQuizGame.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {PubQuizGame, []}
+      mod: {PubquizGame, []}
     ]
   end
 

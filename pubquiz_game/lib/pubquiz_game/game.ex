@@ -1,12 +1,12 @@
-defmodule PubQuizGame.Game do
+defmodule PubquizGame.Game do
 
-  alias PubQuizGame.Game
-  alias PubQuizGame.Chapter
-  alias PubQuizGame.Question
-  alias PubQuizGame.Answer
-  alias PubQuizGame.History
-  alias PubQuizGame.Utils
-  alias PubQuizGame.Player
+  alias PubquizGame.Game
+  alias PubquizGame.Chapter
+  alias PubquizGame.Question
+  alias PubquizGame.Answer
+  alias PubquizGame.History
+  alias PubquizGame.Utils
+  alias PubquizGame.Player
 
   @filename "../../data/pubquiz.json"
 
@@ -17,7 +17,7 @@ defmodule PubQuizGame.Game do
   Creates a new Game.
   """
   def init(filename) do
-    PubQuizGame.Game.read_from_json(filename)
+    PubquizGame.Game.read_from_json(filename)
       |> elem(1)
       |> (&(Map.put(&1, :history, History.init(&1)))).()
   end

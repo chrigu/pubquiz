@@ -1,7 +1,7 @@
-defmodule PubQuizGameUtilsTest do
+defmodule PubquizGameUtilsTest do
     use ExUnit.Case
 
-    alias PubQuizGame.Utils
+    alias PubquizGame.Utils
   
     test "is last element of list" do
       assert Utils.is_last([1, 2, 3], 2) == true

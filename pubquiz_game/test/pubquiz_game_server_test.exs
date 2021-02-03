@@ -1,9 +1,9 @@
 defmodule GameServerTest do
   use ExUnit.Case, async: true
 
-  doctest PubQuizGame.GameServer
+  doctest PubquizGame.GameServer
 
-  alias PubQuizGame.{GameServer}
+  alias PubquizGame.{GameServer}
 
   @game_name "foo"
 

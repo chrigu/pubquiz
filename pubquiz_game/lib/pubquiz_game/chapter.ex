@@ -1,4 +1,4 @@
-defmodule PubQuizGame.Chapter do
+defmodule PubquizGame.Chapter do
   
   # @enforce_keys [:title, :questions, :timelimit]
   defstruct [:title, :questions, :timelimit]
@@ -8,7 +8,7 @@ defmodule PubQuizGame.Chapter do
   """
 
   def new(title, questions, timelimit) do
-    %PubQuizGame.Chapter{title: title, questions: questions, timelimit: timelimit}
+    %PubquizGame.Chapter{title: title, questions: questions, timelimit: timelimit}
   end
 
 end

@@ -1,4 +1,4 @@
-defmodule PubQuizGame.Utils do
+defmodule PubquizGame.Utils do
 
   def is_last(list, index) do
     l = length(list) - 1

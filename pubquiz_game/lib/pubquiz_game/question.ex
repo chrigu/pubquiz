@@ -1,4 +1,4 @@
-defmodule PubQuizGame.Question do
+defmodule PubquizGame.Question do
   
   # @enforce_keys [:question, :answers]
   defstruct [:question, :answers]
@@ -7,6 +7,6 @@ defmodule PubQuizGame.Question do
   Creates a question with the given `qustion` ,`answers``.
   """
   def new(question, answers) do
-    %PubQuizGame.Question{question: question, answers: answers}
+    %PubquizGame.Question{question: question, answers: answers}
   end
 end

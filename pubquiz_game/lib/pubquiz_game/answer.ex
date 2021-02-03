@@ -1,4 +1,4 @@
-defmodule PubQuizGame.Answer do
+defmodule PubquizGame.Answer do
   
     # @enforce_keys [:text, :correct]
     defstruct [:text, :correct]
@@ -7,7 +7,7 @@ defmodule PubQuizGame.Answer do
     Creates a player with the given `text` and `correct`.
     """
     def new(text, correct) do
-      %PubQuizGame.Answer{text: text, correct: correct}
+      %PubquizGame.Answer{text: text, correct: correct}
     end
   end
   

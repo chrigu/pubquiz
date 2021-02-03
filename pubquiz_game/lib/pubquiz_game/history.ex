@@ -1,4 +1,4 @@
-defmodule PubQuizGame.History do
+defmodule PubquizGame.History do
   
     # @enforce_keys [:title, :questions, :timelimit]
   

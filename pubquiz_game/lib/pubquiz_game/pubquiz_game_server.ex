@@ -1,4 +1,4 @@
-defmodule PubQuizGame.GameServer do
+defmodule PubquizGame.GameServer do
   @moduledoc """
   A game server process that holds a `Game` struct as its state.
   """
@@ -37,7 +37,7 @@ defmodule PubQuizGame.GameServer do
   Returns a tuple used to register and lookup a game server process by name.
   """
   def via_tuple(game_name) do
-    {:via, Registry, {PubQuizGame.GameRegistry, game_name}}
+    {:via, Registry, {PubquizGame.GameRegistry, game_name}}
   end
 
   @doc """
@@ -54,7 +54,7 @@ defmodule PubQuizGame.GameServer do
 
   def init({game_name}) do
 
-    game = PubQuizGame.Game.init(@filename)
+    game = PubquizGame.Game.init(@filename)
 
 #    game =
 #      case :ets.lookup(:games_table, game_name) do
@@ -73,11 +73,11 @@ defmodule PubQuizGame.GameServer do
   end
 
   def handle_call(:game_score, _from, game) do
-    {:reply, PubQuizGame.Game.get_leaderboard(game), game, @timeout}
+    {:reply, PubquizGame.Game.get_leaderboard(game), game, @timeout}
   end
 
   def handle_call({:answer_question, answer, player}, _from, game) do
-    new_game = PubQuizGame.Game.answer_question(game, player, answer)
+    new_game = PubquizGame.Game.answer_question(game, player, answer)
 
 #    :ets.insert(:games_table, {my_game_name(), new_game})
 
@@ -85,7 +85,7 @@ defmodule PubQuizGame.GameServer do
   end
 
   def handle_call(:next_step, _from, game) do
-    reply = PubQuizGame.Game.next_step(game)
+    reply = PubquizGame.Game.next_step(game)
     {:reply, elem(reply, 0), elem(reply, 1), @timeout}
   end
 
@@ -103,6 +103,6 @@ defmodule PubQuizGame.GameServer do
   end
 
   defp my_game_name do
-    Registry.keys(PubQuizGame.GameRegistry, self()) |> List.first
+    Registry.keys(PubquizGame.GameRegistry, self()) |> List.first
   end
 end
