@@ -1,9 +1,7 @@
 defmodule PubQuizGameTest do
   use ExUnit.Case
 
-  alias PubQuizGame.Utils
   alias PubQuizGame.Game
-  alias PubQuizGame.Player
 
   @filename "../../data/pubquiz_test.json"
   # doctest PubquizGame
@@ -56,7 +54,7 @@ defmodule PubQuizGameTest do
     next_game = get_game()
       |> Map.replace!(:current_chapter, 1)
       |> Map.replace!(:current_question, 0)
-      |> Game.answer_question(%Player{name: "Hans", color: :blue}, 1)
+      |> Game.answer_question("Hans", 1)
 
     score = next_game.history
     |> Enum.at(next_game.current_chapter)
@@ -69,7 +67,7 @@ defmodule PubQuizGameTest do
     next_game = get_game()
       |> Map.replace!(:current_chapter, 0)
       |> Map.replace!(:current_question, 0)
-      |> Game.answer_question(%Player{name: "Hans", color: :blue}, 1)
+      |> Game.answer_question("Hans", 1)
 
     score = next_game.history
     |> Enum.at(next_game.current_chapter)
@@ -79,7 +77,6 @@ defmodule PubQuizGameTest do
   end
 
   test "calculates score for chapter with empty score" do
-    question_player_scores = %{"Hans" => true, "Fritz" => true, "Betli" => false}
     chapter = [%{"Hans" => true, "Fritz" => false, "Betli" => true}, %{"Hans" => false, "Fritz" => false, "Betli" => true}]
     score = Game.get_leaderboard_for_chapter(chapter, %{})
     assert %{"Betli" => 2, "Fritz" => 0, "Hans" => 1} == score
