@@ -29,7 +29,7 @@ defmodule PubQuizGame.GameServer do
     GenServer.call(via_tuple(game_name), {:answer_question, answer, player})
   end
 
- def next_step(game_name, answer, player) do
+ def next_step(game_name) do
     GenServer.call(via_tuple(game_name), :next_step)
   end
 
@@ -85,7 +85,8 @@ defmodule PubQuizGame.GameServer do
   end
 
   def handle_call(:next_step, _from, game) do
-    {:reply, PubQuizGame.Game.next_step(game), game, @timeout}
+    reply = PubQuizGame.Game.next_step(game)
+    {:reply, elem(reply, 0), elem(reply, 1), @timeout}
   end
 
   def handle_info(:timeout, game) do
