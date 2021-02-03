@@ -1,18 +1,15 @@
-defmodule PubquizGame do
-  @moduledoc """
-  Documentation for `PubquizGame`.
-  """
+defmodule PubQuizGame do
+  use Application
 
-  @doc """
-  Hello world.
+  def start(_type, _args) do
+    children = [
+      {Registry, keys: :unique, name: PubQuizGame.GameRegistry},
+      PubQuizGame.GameSupervisor
+    ]
 
-  ## Examples
+#    :ets.new(:games_table, [:public, :named_table])
 
-      iex> PubquizGame.hello()
-      :world
-
-  """
-  def hello do
-    :world
+    opts = [strategy: :one_for_one, name: PubQuizGame.Supervisor]
+    Supervisor.start_link(children, opts)
   end
 end

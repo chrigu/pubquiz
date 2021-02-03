@@ -1,4 +1,4 @@
-defmodule PubquizGameUtilsTest do
+defmodule PubQuizGameUtilsTest do
     use ExUnit.Case
 
     alias PubQuizGame.Utils

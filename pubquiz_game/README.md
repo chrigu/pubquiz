@@ -1,4 +1,4 @@
-# PubquizGame
+# PubQuizGame
 
 **TODO: Add description**
 
