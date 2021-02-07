@@ -6,7 +6,6 @@ defmodule PubquizGame.Game do
   alias PubquizGame.Answer
   alias PubquizGame.History
   alias PubquizGame.Utils
-  alias PubquizGame.Player
 
   @filename "../../data/pubquiz.json"
 

@@ -8,7 +8,7 @@ defmodule Pubquiz.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      Pubquiz.Repo,
+#      Pubquiz.Repo,
       # Start the Telemetry supervisor
       PubquizWeb.Telemetry,
       # Start the PubSub system

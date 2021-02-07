@@ -13,10 +13,18 @@ defmodule PubquizWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", PubquizWeb do
+  scope "/admin", PubquizWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+#    get "/", PageController, :index
+     get "/*path", PageController, :index
+  end
+
+  scope "/api", PubquizWeb do
+    pipe_through :api
+
+#    get "/", PageController, :index
+     post "/start", ApiController, :start
   end
 
   # Other scopes may use custom stacks.

@@ -13,10 +13,10 @@ config :pubquiz,
 # Configures the endpoint
 config :pubquiz, PubquizWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "nhTqedX36y9/osb76OyNDFa7T2Q8d4VcNIGq8tjd929LFVTmsHL+YvD1hl+C0PdP",
+  secret_key_base: "iozBZAEM0ezuTaPVWBcXbukLhM0z0iEjKYaVR/JzWz6/bLx9qDSR3zqCFK0loDrs",
   render_errors: [view: PubquizWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Pubquiz.PubSub,
-  live_view: [signing_salt: "omWaHFJN"]
+  live_view: [signing_salt: "NPMMRZok"]
 
 # Configures Elixir's Logger
 config :logger, :console,
