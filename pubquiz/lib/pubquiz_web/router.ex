@@ -11,6 +11,7 @@ defmodule PubquizWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
   end
 
   scope "/admin", PubquizWeb do

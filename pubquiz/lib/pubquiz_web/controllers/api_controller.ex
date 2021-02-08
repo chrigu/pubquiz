@@ -3,16 +3,16 @@ defmodule PubquizWeb.ApiController do
 
   alias PubquizGame.{GameServer, GameSupervisor}
 
-  def start(conn, params) do
+  def start(conn, %{"name" => name}) do
     game_name = Pubquiz.HaikuName.generate()
 
-    player = %{name: "Hans"}
+    game_init_info = %{name: name, game_name: game_name}
 
     case GameSupervisor.start_game(game_name) do
       {:ok, _game_pid} ->
         conn
-#        |> put_session(:player, player)
-        |> redirect(to: "/" <> game_name)
+        |> put_session(:player, %{name: name})
+        |> render("index.json", game_init_info)
 
       {:error, _error} ->
         conn
