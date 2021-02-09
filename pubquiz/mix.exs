@@ -46,6 +46,7 @@ defmodule Pubquiz.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
 
+      {:cors_plug, "~> 2.0"},
       {:pubquiz_game, path: "../pubquiz_game"}
     ]
   end

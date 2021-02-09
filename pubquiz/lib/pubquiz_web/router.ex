@@ -11,6 +11,7 @@ defmodule PubquizWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug CORSPlug, origin: ["http://localhost:4000"]
     plug :fetch_session
   end
 
