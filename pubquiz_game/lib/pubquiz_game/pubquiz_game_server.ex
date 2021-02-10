@@ -25,6 +25,10 @@ defmodule PubquizGame.GameServer do
     GenServer.call(via_tuple(game_name), :game_score)
   end
 
+  def game_summary(game_name) do
+    GenServer.call(via_tuple(game_name), :game_summary)
+  end
+
   def answer_question(game_name, answer, player) do
     GenServer.call(via_tuple(game_name), {:answer_question, answer, player})
   end

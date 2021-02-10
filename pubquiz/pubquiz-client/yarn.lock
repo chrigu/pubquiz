@@ -7782,9 +7782,8 @@
   "resolved" "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz"
   "version" "2.1.0"
 
-"phoenix@file:../deps/phoenix":
-  "resolved" "file:../deps/phoenix"
-  "version" "1.5.7"
+"phoenix@file:../deps/phoenix/assets":
+  "resolved" "file:../deps/phoenix/assets"
 
 "picomatch@^2.0.4", "picomatch@^2.2.1":
   "integrity" "sha512-q0M/9eZHzmr0AulXyPwNfZjtwZ/RBZlbN3K3CErVrk50T2ASYI7Bye0EvekFY3IP1Nt2DHu0re+V2ZHIpMkuWg=="

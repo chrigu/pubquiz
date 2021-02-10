@@ -36,6 +36,10 @@ defmodule PubquizGame.Game do
       |> update_chapter_index
   end
 
+  def game_summary(game) do
+    game
+  end
+
   defp update_question_index(game) do
     current_chapter = Enum.at(game.chapters, game.current_chapter)
     case Utils.is_last(current_chapter.questions, game.current_question) do
