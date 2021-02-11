@@ -31,31 +31,31 @@ defmodule PubquizWeb.GameChannel do
     {:noreply, socket}
   end
 
-#  def handle_in("mark_square", %{"phrase" => phrase}, socket) do
-#    "games:" <> game_name = socket.topic
-#
-#    case GameServer.game_pid(game_name) do
-#      pid when is_pid(pid) ->
-#        summary = GameServer.mark(game_name, phrase, current_player(socket))
-#
-#        broadcast!(socket, "game_summary", summary)
-#
-#        {:noreply, socket}
-#
-#      nil ->
-#        {:reply, {:error, %{reason: "Game does not exist"}}, socket}
-#    end
-#  end
-#
-#  def handle_in("new_chat_message", %{"body" => body}, socket) do
-#    broadcast!(socket, "new_chat_message", %{
-#      name: current_player(socket).name,
-#      body: body
-#    })
-#
-#    {:noreply, socket}
-#  end
-#
+  def handle_in("mark_square", %{"phrase" => phrase}, socket) do
+    "games:" <> game_name = socket.topic
+
+    case GameServer.game_pid(game_name) do
+      pid when is_pid(pid) ->
+        summary = GameServer.mark(game_name, phrase, current_player(socket))
+
+        broadcast!(socket, "game_summary", summary)
+
+        {:noreply, socket}
+
+      nil ->
+        {:reply, {:error, %{reason: "Game does not exist"}}, socket}
+    end
+  end
+
+  def handle_in("new_chat_message", %{"body" => body}, socket) do
+    broadcast!(socket, "new_chat_message", %{
+      name: current_player(socket).name,
+      body: body
+    })
+
+    {:noreply, socket}
+  end
+
   defp current_player(socket) do
     socket.assigns.current_player
   end

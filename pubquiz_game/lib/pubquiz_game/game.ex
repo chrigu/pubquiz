@@ -16,7 +16,7 @@ defmodule PubquizGame.Game do
   Creates a new Game.
   """
   def init(filename) do
-    PubquizGame.Game.read_from_json(filename)
+    Game.read_from_json(filename)
       |> elem(1)
       |> (&(Map.put(&1, :history, History.init(&1)))).()
   end
@@ -34,10 +34,6 @@ defmodule PubquizGame.Game do
     game
       |> update_question_index
       |> update_chapter_index
-  end
-
-  def game_summary(game) do
-    game
   end
 
   defp update_question_index(game) do
@@ -116,5 +112,19 @@ defmodule PubquizGame.Game do
       false -> Map.put(score, key, Map.get(score, key, 0))
     end
   end
+
+  @doc """
+  create summary from game
+  """
+  def summary(game) do
+    chapter = get_current_chapter(game).title
+    question = get_current_question(game).question
+    answers = get_current_question(game).answers
+    |> Enum.map(&(&1.text))
+    leaderboard = get_leaderboard(game)
+
+    %{chapter: chapter, question: question, answers: answers, leaderboard: leaderboard}
+  end
+
 
 end

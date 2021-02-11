@@ -107,4 +107,14 @@ defmodule PubquizGameTest do
     score = Game.get_leaderboard(next_game)
     assert %{"Betli" => 3, "Fritz" => 1, "Hans" => 2} == score
   end
+
+  test "creates summary" do
+    summary = get_game()
+      |> Map.replace!(:current_chapter, 1)
+      |> Map.replace!(:current_question, 0)
+      |> Game.answer_question("Hans", 1)
+      |> Game.summary
+
+    assert %{answers: ["a11", "a12", "a13", "a14"], chapter: "ch2", leaderboard: %{"Hans" => 1}, question: "q1"} == summary
+  end
 end

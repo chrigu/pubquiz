@@ -18,8 +18,8 @@ defmodule PubquizWeb.UserSocket do
   @impl true
   def connect(%{"token" => token}, socket) do
     case Phoenix.Token.verify(socket, "player_auth", token, max_age: 86400) do
-      {:ok, player} ->
-        {:ok, assign(socket, :current_player, player)}
+      {:ok, info} ->
+        {:ok, assign(socket, :current_player, info.name)}
       {:error, _reason} ->
         :error
     end

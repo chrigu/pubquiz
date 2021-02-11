@@ -11,7 +11,7 @@ defmodule PubquizWeb.ApiController do
     case GameSupervisor.start_game(game_name) do
       {:ok, _game_pid} ->
         conn
-        |> put_session(:player, %{name: name})
+        |> put_session(:current_player, %{name: name})
         |> render("index.json", %{game_info: game_init_info, token: token})
 
       {:error, _error} ->
@@ -23,7 +23,7 @@ defmodule PubquizWeb.ApiController do
 
   defp generate_auth_token(conn) do
     current_player = get_session(conn, :current_player)
-    Phoenix.Token.sign(conn, "player auth", current_player)
+    Phoenix.Token.sign(conn, "player_auth", current_player.name)
   end
 end
 
