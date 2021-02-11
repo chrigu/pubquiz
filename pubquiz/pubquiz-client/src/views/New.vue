@@ -26,14 +26,14 @@ export default {
     createGame (event) {
       const ctrl = this
       axios.post('http://localhost:4000/api/start', {
-        name: this.player
+        player: this.player
       }).then(function ({ status, data }) {
         ctrl.initGame({
           player: data.game_info.name,
           gameName: data.game_info.game_name,
           token: data.token
         })
-        ctrl.$router.push({ path: `/game/${data.game_info.game_name}/waitingroom` })
+        ctrl.$router.push({ name: 'waitingRoom', params: { id: data.game_info.game_name } })
       }).catch(function (error) {
         console.log(error)
       })

@@ -14,9 +14,10 @@ defmodule Pubquiz.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Pubquiz.PubSub},
       # Start the Endpoint (http/https)
-      PubquizWeb.Endpoint
+      PubquizWeb.Endpoint,
       # Start a worker by calling: Pubquiz.Worker.start_link(arg)
       # {Pubquiz.Worker, arg}
+      PubquizWeb.Presence
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

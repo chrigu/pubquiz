@@ -1,6 +1,6 @@
 <template>
   <div class="waiting-room">
-    <h1>Waiting for players</h1>
+    <h1>Waiting for players {{gameName}}</h1>
     <p>Hi {{player}}, we're waiting for other players</p>
     <ul class="players">
       <li v-for="player of players" :key="player.name"></li>
@@ -21,7 +21,7 @@ export default {
     return {}
   },
   computed: {
-    ...mapGetters(['player', 'players'])
+    ...mapGetters(['player', 'players', 'gameName'])
   },
   methods: {
     ...mapActions(['initGame']),

@@ -27,6 +27,7 @@ defmodule PubquizWeb.Router do
 
 #    get "/", PageController, :index
      post "/start", ApiController, :start
+     post "/join", ApiController, :join
   end
 
   # Other scopes may use custom stacks.

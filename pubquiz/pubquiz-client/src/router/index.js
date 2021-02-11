@@ -20,19 +20,21 @@ const routes = [
   },
   {
     path: '/new',
-    name: 'New',
+    name: 'new',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/New.vue')
+    component: () => import(/* webpackChunkName: "new" */ '../views/New.vue')
+  },
+  {
+    path: '/join',
+    name: 'join',
+    component: () => import(/* webpackChunkName: "join" */ '../views/Join.vue')
   },
   {
     path: '/game/:id/waitingroom',
     name: 'waitingRoom',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/WaitingRoom.vue')
+    component: () => import(/* webpackChunkName: "waitingroom" */ '../views/WaitingRoom.vue')
   }
 ]
 

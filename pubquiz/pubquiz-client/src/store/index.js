@@ -67,6 +67,12 @@ export default new Vuex.Store({
       await dispatch('setGameName', gameName)
       await dispatch('setAdmin', true)
       await dispatch('joinGameChannel')
+    },
+    async join ({ dispatch }, { player, gameName, token }) {
+      await dispatch('setPlayer', player)
+      await dispatch('setToken', token)
+      await dispatch('setGameName', gameName)
+      await dispatch('joinGameChannel')
     }
   },
   modules: {

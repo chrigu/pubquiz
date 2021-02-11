@@ -95,7 +95,7 @@ defmodule PubquizGame.GameServer do
 
   def handle_call(:game_summary, _from, game) do
     summary = PubquizGame.Game.summary(game)
-    {:reply, summary, summary, @timeout}
+    {:reply, summary, game, @timeout}
   end
 
   def handle_info(:timeout, game) do

@@ -3,7 +3,7 @@ defmodule PubquizWeb.ApiController do
 
   alias PubquizGame.{GameServer, GameSupervisor}
 
-  def start(conn, %{"name" => name}) do
+  def start(conn, %{"player" => name}) do
     game_name = Pubquiz.HaikuName.generate()
     game_init_info = %{name: name, game_name: game_name, is_admin: true}
     token = Phoenix.Token.sign(conn, "player_auth", game_init_info)
@@ -18,6 +18,21 @@ defmodule PubquizWeb.ApiController do
         conn
         |> put_flash(:error, "Unable to start game!")
         |> redirect(to: "/game/fail")
+    end
+  end
+
+  def join(conn, %{"player" => name, "gameName" => game_name}) do
+
+    case GameServer.game_pid(game_name) do
+      pid when is_pid(pid) ->
+        game_info = %{name: name, game_name: game_name, is_admin: false}
+        token = Phoenix.Token.sign(conn, "player_auth", game_info)
+        conn
+        |> put_session(:current_player, %{name: name})
+        |> render("index.json", %{game_info: game_info, token: token})
+      nil ->
+        {:error, %{reason: "Game does not exist"}}
+#    endredirect(to: "/game/fail")
     end
   end
 

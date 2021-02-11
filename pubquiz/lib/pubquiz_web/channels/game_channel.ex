@@ -5,7 +5,6 @@ defmodule PubquizWeb.GameChannel do
   alias PubquizGame.GameServer
 
   def join("games:" <> game_name, _params, socket) do
-    IO.puts('hello2')
     case GameServer.game_pid(game_name) do
       pid when is_pid(pid) ->
         send(self(), {:after_join, game_name})
@@ -18,14 +17,14 @@ defmodule PubquizWeb.GameChannel do
 
   def handle_info({:after_join, game_name}, socket) do
     summary = GameServer.summary(game_name)
-    IO.inspect(summary)
+
     push(socket, "game_summary", summary)
 
     push(socket, "presence_state", Presence.list(socket))
 
     {:ok, _} =
-      Presence.track(socket, current_player(socket).name, %{
-        online_at: inspect(System.system_time(:seconds)),
+      Presence.track(socket, current_player(socket), %{
+        online_at: inspect(System.system_time(:second)),
       })
 
     {:noreply, socket}
