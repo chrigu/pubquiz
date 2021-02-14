@@ -58,8 +58,8 @@ export default new Vuex.Store({
     setAdmin ({ commit, state }, isAdmin) {
       commit('setAdmin', isAdmin)
     },
-    joinGameChannel ({ state }) {
-      joinChannel(state.token, state.gameName)
+    joinGameChannel ({ state, dispatch }) {
+      joinChannel(dispatch, state.token, state.gameName)
     },
     async initGame ({ dispatch }, { player, gameName, token }) {
       await dispatch('setPlayer', player)
