@@ -24,12 +24,15 @@ export function joinChannel (dispatch, authToken, gameName) {
   channel.on('presence_state', state => {
     presences = Presence.syncState(presences, state)
     console.log('state', presences)
-    toPlayers(presences)
+    const players = toPlayers(presences)
+    dispatch('setPlayers', players)
   })
 
   channel.on('presence_diff', diff => {
     presences = Presence.syncDiff(presences, diff)
     console.log('diff', presences)
+    const players = toPlayers(presences)
+    dispatch('setPlayers', players)
   })
 }
 

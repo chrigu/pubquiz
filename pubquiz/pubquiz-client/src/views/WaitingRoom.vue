@@ -3,7 +3,7 @@
     <h1>Waiting for players {{gameName}}</h1>
     <p>Hi {{player}}, we're waiting for other players</p>
     <ul class="players">
-      <li v-for="player of players" :key="player.name"></li>
+      <li v-for="playerName in players" :key="playerName">{{playerName}}</li>
     </ul>
 
     <button type="button" @click="startGame">Start</button>

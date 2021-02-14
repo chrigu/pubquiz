@@ -21,6 +21,9 @@ export default new Vuex.Store({
     updatePlayers (state, payload) {
       state.players = [...state.players, payload]
     },
+    setPlayers (state, payload) {
+      state.players = payload
+    },
     updateGameState (state, payload) {
       state.gameState = payload
     },
@@ -48,6 +51,9 @@ export default new Vuex.Store({
     },
     setPlayer ({ commit, state }, player) {
       commit('setPlayer', player)
+    },
+    setPlayers ({ commit, state }, players) {
+      commit('setPlayers', players)
     },
     addPlayer ({ commit, state }, player) {
       commit('updatePlayers', player)
