@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: "Leaderborad.vue",
+  name: 'Leaderborad.vue',
   data () {
     return {
       players: []

@@ -1,4 +1,4 @@
-import {joinChannel} from "@/ws";
+import { joinChannel } from '@/ws'
 
 export default {
   setGameName ({ commit, state }, gameName) {
