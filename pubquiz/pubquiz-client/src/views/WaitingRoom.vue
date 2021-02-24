@@ -30,6 +30,8 @@ export default {
         name: this.name
       }).then(function ({ status, data }) {
         console.log(data, status)
+        // feed state
+        // start game
       }).catch(function (error) {
         console.log(error)
       })
