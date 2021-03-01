@@ -47,3 +47,18 @@ test('join game', async () => {
   expect(dispatchMock.mock.calls[3]).toEqual(['joinGameChannel'])
 
 })
+
+test('start game', async () => {
+  const dispatchMock = jest.fn(store => 1 + 1);
+
+  const store = {
+    dispatch: dispatchMock,
+    state: {}
+  }
+
+  await actions.startGame(store)
+
+  expect(dispatchMock.mock.calls.length).toEqual(1)
+  expect(dispatchMock.mock.calls[0]).toEqual(['setGameState', 'chapterTitle'])
+
+})

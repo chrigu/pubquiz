@@ -8,7 +8,7 @@ export default {
   setPlayers (state, payload) {
     state.players = payload
   },
-  updateGameState (state, payload) {
+  setGameState (state, payload) {
     state.gameState = payload
   },
   setToken (state, payload) {

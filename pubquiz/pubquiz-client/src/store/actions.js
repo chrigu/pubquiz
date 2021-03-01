@@ -19,6 +19,9 @@ export default {
   setAdmin ({ commit, state }, isAdmin) {
     commit('setAdmin', isAdmin)
   },
+  setGameState ({ commit }, newState) {
+    commit('setGameName', gameName)
+  },
   joinGameChannel ({ state, dispatch }) {
     joinChannel(dispatch, state.token, state.gameName)
   },
@@ -35,8 +38,8 @@ export default {
     await dispatch('setGameName', gameName)
     await dispatch('joinGameChannel')
   },
-  startGame ({ state, dispatch }) {
-    dispatch('setGameName', 'chapterTitle')
+  startGame ({ dispatch }) {
+    dispatch('setGameState', 'chapterTitle')
   },
   showAnswer ({ state, dispatch }) {
     // check if q left

@@ -4,5 +4,5 @@ export default {
   gameState: 'waitingForPlayers',
   gameName: '',
   isAdmin: false,
-  token: ''
+  token: '',
 }
