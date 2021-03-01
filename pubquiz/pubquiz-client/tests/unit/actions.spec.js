@@ -1,11 +1,23 @@
-import mutations from '../../src/store/actions'
+import actions from '../../src/store/actions'
 import initialState from '../../src/store/state'
 
-test('add player to players', () => {
-  const state = Object.assign(initialState, {
+test('add player to players', async () => {
+  const joinGameChannelMock = jest.fn(store => console.log(store));
 
-  })
+  actions.joinGameChannel = joinGameChannelMock
 
-  mutations.updatePlayers(state, 'Hans')
-  expect(state.players.length).toBe(1)
+  const some = {
+    dispatch: joinGameChannelMock
+  }
+
+  const initGame = {
+    player: "hands",
+    gameName: "bla",
+    token: "ssadfasfd23"
+  }
+
+  await actions.initGame(some, initGame)
+
+  console.log(joinGameChannelMock.mock.calls)
+
 })
