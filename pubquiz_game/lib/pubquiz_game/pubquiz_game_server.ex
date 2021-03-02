@@ -37,6 +37,10 @@ defmodule PubquizGame.GameServer do
     GenServer.call(via_tuple(game_name), :next_step)
   end
 
+ def chapter_title(game_name) do
+    GenServer.call(via_tuple(game_name), :chapter_title)
+  end
+
   @doc """
   Returns a tuple used to register and lookup a game server process by name.
   """
@@ -89,12 +93,27 @@ defmodule PubquizGame.GameServer do
   end
 
   def handle_call(:next_step, _from, game) do
+
+    # check state & answers, check user = admin
     reply = PubquizGame.Game.next_step(game)
     {:reply, elem(reply, 0), elem(reply, 1), @timeout}
   end
 
-  def handle_call(:game_summary, _from, game) do
+  def handle_call(:chapter_title, _from, game) do
+    # check state & answers, check user = admin
     summary = PubquizGame.Game.summary(game)
+    chapter_title = %{chapter: summary.chapter, leaderboard: summary.leaderboard}
+    {:reply, chapter_title, game, @timeout}
+  end
+
+  def handle_call(:question, _from, game) do
+    # check state & answers, check user = admin
+    summary = PubquizGame.Game.summary(game)
+    {:reply, summary, game, @timeout}
+  end
+
+  def handle_call(:solution, _from, game) do
+    summary = PubquizGame.Game.summary_with_solution(game)
     {:reply, summary, game, @timeout}
   end
 

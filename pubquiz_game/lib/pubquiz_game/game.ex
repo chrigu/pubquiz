@@ -116,15 +116,24 @@ defmodule PubquizGame.Game do
   @doc """
   create summary from game
   """
-  def summary(game) do
+  def summary_with_solutions(game) do
     chapter = get_current_chapter(game).title
     question = get_current_question(game).question
     answers = get_current_question(game).answers
-    |> Enum.map(&(&1.text))
     leaderboard = get_leaderboard(game)
 
     %{chapter: chapter, question: question, answers: answers, leaderboard: leaderboard}
   end
 
+  @doc """
+  create summary without answers
+  """
+  def summary(game) do
+    summary = summary_with_solutions(game)
+    answers_without_solution = summary.answers
+    |> Enum.map(&(&1.text))
+
+    %{summary | :answers => answers_without_solution}
+  end
 
 end
