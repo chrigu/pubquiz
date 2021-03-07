@@ -8,7 +8,8 @@
 use Mix.Config
 
 config :pubquiz,
-  ecto_repos: [Pubquiz.Repo]
+  ecto_repos: []
+#  ecto_repos: [Pubquiz.Repo]
 
 # Configures the endpoint
 config :pubquiz, PubquizWeb.Endpoint,

@@ -99,7 +99,7 @@ defmodule PubquizGame.GameServer do
     {:reply, elem(reply, 0), elem(reply, 1), @timeout}
   end
 
-  def handle_call(:chapter_title, _from, game) do
+  def handle_call(:game_summary, _from, game) do
     # check state & answers, check user = admin
     summary = PubquizGame.Game.summary(game)
     chapter_title = %{chapter: summary.chapter, leaderboard: summary.leaderboard}

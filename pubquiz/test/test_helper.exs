@@ -1,2 +1,2 @@
 ExUnit.start()
-Ecto.Adapters.SQL.Sandbox.mode(Pubquiz.Repo, :manual)
+#Ecto.Adapters.SQL.Sandbox.mode(Pubquiz.Repo, :manual)

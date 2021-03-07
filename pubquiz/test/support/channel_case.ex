@@ -28,13 +28,13 @@ defmodule PubquizWeb.ChannelCase do
     end
   end
 
-  setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Pubquiz.Repo)
-
-    unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Pubquiz.Repo, {:shared, self()})
-    end
-
-    :ok
-  end
+#  setup tags do
+#    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Pubquiz.Repo)
+#
+#    unless tags[:async] do
+#      Ecto.Adapters.SQL.Sandbox.mode(Pubquiz.Repo, {:shared, self()})
+#    end
+#
+#    :ok
+#  end
 end
