@@ -19,5 +19,11 @@ export default {
   },
   setGameName (state, payload) {
     state.gameName = payload
+  },
+  setChapter (state, payload) {
+    state.chapter = payload
+  },
+  setQuestion (state, payload) {
+    state.question = payload
   }
 }

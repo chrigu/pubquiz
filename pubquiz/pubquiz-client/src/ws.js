@@ -3,12 +3,13 @@ import { Socket, Presence } from 'phoenix/js/phoenix'
 const host = 'ws://localhost:4000'
 let socket = null
 let presences = {}
+let channel = {}
 
 export function joinChannel (dispatch, authToken, gameName) {
   socket = new Socket(`${host}/socket`, { params: { token: authToken } })
   socket.connect()
 
-  const channel = socket.channel(`games:${gameName}`, {})
+  channel = socket.channel(`games:${gameName}`, {})
 
   // presence = new Presence(channel)
 
@@ -16,9 +17,32 @@ export function joinChannel (dispatch, authToken, gameName) {
     .receive('ok', ({ messages }) => console.log('catching up', messages))
     .receive('error', ({ reason }) => console.log('failed join', reason))
     .receive('timeout', () => console.log('Networking issue. Still waiting...'))
+
   channel.on('game_summary', summary => {
-    console.log('summary', summary)
-    // this.players = this.toPlayers(this.presences)
+    dispatch('setPlayers', players)
+  })
+
+  channel.on('summary', summary => {
+    dispatch('summary', summary)
+  })
+
+  channel.on('next_question', summary => {
+    dispatch('showChapter')
+  })
+
+  channel.on('chapter_title', title => {
+    console.log('chapter_title', title)
+    dispatch('set', players)
+  })
+
+  channel.on('question', question => {
+    console.log('question', question)
+    dispatch('setQuestion', question)
+  })
+
+  channel.on('solution', question => {
+    console.log('question', question)
+    dispatch('setQuestion', question)
   })
 
   channel.on('presence_state', state => {
@@ -34,6 +58,23 @@ export function joinChannel (dispatch, authToken, gameName) {
     dispatch('setPlayers', players)
   })
 }
+
+export function startGame () {
+  channel.push("start_game")
+}
+
+export function fetchChapterTitle () {
+  channel.push("chapter_title")
+}
+
+export function fetchQuestion () {
+  channel.push("next_question")
+}
+//
+// export function fetchSolution () {
+//   channel.push("solution")
+// }
+
 
 function toPlayers (presences) {
   const listBy = (name, { metas: [first, ...rest] }) => {

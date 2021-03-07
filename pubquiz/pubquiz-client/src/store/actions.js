@@ -1,4 +1,4 @@
-import { joinChannel } from '@/ws'
+import {joinChannel, fetchChapterTitle, startGame, nextQuestion} from '@/ws'
 
 export default {
   setGameName ({ commit, state }, gameName) {
@@ -19,8 +19,14 @@ export default {
   setAdmin ({ commit, state }, isAdmin) {
     commit('setAdmin', isAdmin)
   },
-  setGameState ({ commit }, newState) {
+  setGameState ({ commit }, gameName) {
     commit('setGameName', gameName)
+  },
+  setChapter ({ commit }, chapter) {
+    commit('setChapter', chapter)
+  },
+  setQuestion ({ commit }, question) {
+    commit('setQuestion', question)
   },
   joinGameChannel ({ state, dispatch }) {
     joinChannel(dispatch, state.token, state.gameName)
@@ -38,17 +44,38 @@ export default {
     await dispatch('setGameName', gameName)
     await dispatch('joinGameChannel')
   },
-  startGame ({ dispatch }) {
-    dispatch('setGameState', 'chapterTitle')
+  adminStartGame () {
+    startGame()
   },
-  showAnswer ({ state, dispatch }) {
-    // check if q left
-    // check if game done
-    dispatch('setGameName', 'showAnswer')
+  adminNextQuestion () {
+    nextQuestion()
   },
-  nextQuestion ({ state, dispatch }) {
-    // check if q left
-    // check if game done
-    dispatch('setGameName', 'question')
-  }
+  summary ({ state, dispatch }, summary) {
+    if (summary.over) {
+      dispatch('setGameState', 'gameOver')
+    } else if (state.chapter.index !== summary.current_chapter) {
+      dispatch('setChapter', summary.current_chapter)
+      dispatch('setGameState', 'chapterTitle')
+    } else if (summary.answers[0] && summary.answers[0].hasOwnProperty('correct')) { // check if has correct answer
+      dispatch('setGameState', 'showSolution')
+    } else if (state.question.index !== summary.current_question) {
+      dispatch('setQuestion', summary.current_question)
+      dispatch('setGameState', 'showQuestion')
+    }// check if has new question index
+
+  },
+  next_question ({ dispatch }) {
+    dispatch('setGameState', 'showQuestion')
+  },
+  // showSolution ({ state, dispatch }) {
+  //   // check if q left
+  //   // check if game done
+  //   fetchSolution()
+  //   dispatch('setGameState', 'showSolution')
+  // },
+  // nextQuestion ({ state, dispatch }) {
+  //   // check if q left
+  //   // check if game done
+  //   dispatch('setGameName', 'question')
+  // }
 }

@@ -30,14 +30,47 @@ defmodule PubquizWeb.GameChannel do
     {:noreply, socket}
   end
 
-  def handle_in("mark_square", %{"phrase" => phrase}, socket) do
+  def handle_in("start_game", socket) do
+    "games:" <> game_name = socket.topic
+
+    # check if admin
+
+    case GameServer.game_pid(game_name) do
+      pid when is_pid(pid) ->
+        summary = GameServer.summary(game_name)
+        broadcast!(socket, "summary", summary)
+
+        {:noreply, socket}
+
+      nil ->
+        {:reply, {:error, %{reason: "Game does not exist"}}, socket}
+    end
+  end
+
+  def handle_in("next_question", socket) do
+    "games:" <> game_name = socket.topic
+
+    # check if admin
+
+    case GameServer.game_pid(game_name) do
+      pid when is_pid(pid) ->
+        summary = GameServer.next_step(game_name)
+        broadcast!(socket, "next_question", summary)
+
+        {:noreply, socket}
+
+      nil ->
+        {:reply, {:error, %{reason: "Game does not exist"}}, socket}
+    end
+  end
+
+  def handle_in("chapter_title", socket) do
     "games:" <> game_name = socket.topic
 
     case GameServer.game_pid(game_name) do
       pid when is_pid(pid) ->
-        summary = GameServer.mark(game_name, phrase, current_player(socket))
-
-        broadcast!(socket, "game_summary", summary)
+        chapter_title = GameServer.chapter_title(game_name)
+        broadcast!(socket, "chapter_title", chapter_title)
 
         {:noreply, socket}
 

@@ -48,7 +48,22 @@ test('join game', async () => {
 
 })
 
-test('start game', async () => {
+// test('start game', async () => {
+//   const dispatchMock = jest.fn(store => 1 + 1);
+//
+//   const store = {
+//     dispatch: dispatchMock,
+//     state: {}
+//   }
+//
+//   await actions.startGame(store)
+//
+//   expect(dispatchMock.mock.calls.length).toEqual(1)
+//   expect(dispatchMock.mock.calls[0]).toEqual(['setGameState', 'chapterTitle'])
+//
+// })
+
+test('gamover', async () => {
   const dispatchMock = jest.fn(store => 1 + 1);
 
   const store = {
@@ -56,9 +71,96 @@ test('start game', async () => {
     state: {}
   }
 
-  await actions.startGame(store)
+  const summary = {
+    over: true
+  }
+
+  await actions.summary(store, summary)
 
   expect(dispatchMock.mock.calls.length).toEqual(1)
-  expect(dispatchMock.mock.calls[0]).toEqual(['setGameState', 'chapterTitle'])
+  expect(dispatchMock.mock.calls[0]).toEqual(['setGameState', 'gameOver'])
+
+})
+
+test('new chapter', async () => {
+  const dispatchMock = jest.fn(store => 1 + 1);
+
+  const store = {
+    dispatch: dispatchMock,
+    state: {
+      chapter: {
+        index: 0
+      }
+    }
+  }
+
+  const summary = {
+    current_chapter: 1
+  }
+
+  await actions.summary(store, summary)
+
+  expect(dispatchMock.mock.calls.length).toEqual(2)
+  expect(dispatchMock.mock.calls[0]).toEqual(['setChapter', summary.current_chapter])
+  expect(dispatchMock.mock.calls[1]).toEqual(['setGameState', 'chapterTitle'])
+
+})
+
+test('show answers', async () => {
+  const dispatchMock = jest.fn(store => 1 + 1);
+
+  const store = {
+    dispatch: dispatchMock,
+    state: {
+      chapter: {
+        index: 0
+      },
+      question: {
+        index: 0
+      }
+    }
+  }
+
+  const summary = {
+    current_chapter: 0,
+    current_question: 0,
+    answers: [{
+      correct: true
+    }]
+  }
+
+  await actions.summary(store, summary)
+
+  expect(dispatchMock.mock.calls.length).toEqual(1)
+  expect(dispatchMock.mock.calls[0]).toEqual(['setGameState', 'showSolution'])
+
+})
+
+test('next question', async () => {
+  const dispatchMock = jest.fn(store => 1 + 1);
+
+  const store = {
+    dispatch: dispatchMock,
+    state: {
+      chapter: {
+        index: 0
+      },
+      question: {
+        index: 0
+      }
+    }
+  }
+
+  const summary = {
+    current_question: 1,
+    current_chapter: 0,
+    answers: {}
+  }
+
+  await actions.summary(store, summary)
+
+  expect(dispatchMock.mock.calls.length).toEqual(2)
+  expect(dispatchMock.mock.calls[0]).toEqual(['setQuestion', summary.current_question])
+  expect(dispatchMock.mock.calls[1]).toEqual(['setGameState', 'showQuestion'])
 
 })
