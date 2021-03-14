@@ -10,6 +10,7 @@ export function joinChannel (dispatch, authToken, gameName) {
   socket.connect()
 
   channel = socket.channel(`games:${gameName}`, {})
+  dispatch('setGameName', gameName)
 
   // presence = new Presence(channel)
 
@@ -19,10 +20,11 @@ export function joinChannel (dispatch, authToken, gameName) {
     .receive('timeout', () => console.log('Networking issue. Still waiting...'))
 
   channel.on('game_summary', summary => {
-    dispatch('setPlayers', players)
+    dispatch('setPlayers', summary)
   })
 
   channel.on('summary', summary => {
+    console.log('summary', summary)
     dispatch('summary', summary)
   })
 
@@ -32,7 +34,7 @@ export function joinChannel (dispatch, authToken, gameName) {
 
   channel.on('chapter_title', title => {
     console.log('chapter_title', title)
-    dispatch('set', players)
+    dispatch('set', title)
   })
 
   channel.on('question', question => {
@@ -60,21 +62,20 @@ export function joinChannel (dispatch, authToken, gameName) {
 }
 
 export function startGame () {
-  channel.push("start_game")
+  channel.push('start_game', {})
 }
 
 export function fetchChapterTitle () {
-  channel.push("chapter_title")
+  channel.push('chapter_title')
 }
 
 export function fetchQuestion () {
-  channel.push("next_question")
+  channel.push('next_question')
 }
 //
 // export function fetchSolution () {
 //   channel.push("solution")
 // }
-
 
 function toPlayers (presences) {
   const listBy = (name, { metas: [first, ...rest] }) => {

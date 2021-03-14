@@ -30,8 +30,9 @@ defmodule PubquizWeb.GameChannel do
     {:noreply, socket}
   end
 
-  def handle_in("start_game", socket) do
+  def handle_in("start_game", _obj, socket) do
     "games:" <> game_name = socket.topic
+    IO.puts(game_name)
 
     # check if admin
 
@@ -47,7 +48,7 @@ defmodule PubquizWeb.GameChannel do
     end
   end
 
-  def handle_in("next_question", socket) do
+  def handle_in("next_step", socket) do
     "games:" <> game_name = socket.topic
 
     # check if admin
@@ -55,7 +56,7 @@ defmodule PubquizWeb.GameChannel do
     case GameServer.game_pid(game_name) do
       pid when is_pid(pid) ->
         summary = GameServer.next_step(game_name)
-        broadcast!(socket, "next_question", summary)
+        broadcast!(socket, "summary", summary)
 
         {:noreply, socket}
 
@@ -64,20 +65,6 @@ defmodule PubquizWeb.GameChannel do
     end
   end
 
-  def handle_in("chapter_title", socket) do
-    "games:" <> game_name = socket.topic
-
-    case GameServer.game_pid(game_name) do
-      pid when is_pid(pid) ->
-        chapter_title = GameServer.chapter_title(game_name)
-        broadcast!(socket, "chapter_title", chapter_title)
-
-        {:noreply, socket}
-
-      nil ->
-        {:reply, {:error, %{reason: "Game does not exist"}}, socket}
-    end
-  end
 
   def handle_in("new_chat_message", %{"body" => body}, socket) do
     broadcast!(socket, "new_chat_message", %{

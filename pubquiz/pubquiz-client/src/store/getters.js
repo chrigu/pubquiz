@@ -5,5 +5,6 @@ export default {
   gameName: state => state.gameName,
   isAdmin: state => state.isAdmin,
   token: state => state.token,
-  chapter: state => state.chapter
+  chapter: state => state.chapter,
+  chapterTitle: state => state.chapter.title
 }

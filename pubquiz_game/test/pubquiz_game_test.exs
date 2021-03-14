@@ -115,6 +115,6 @@ defmodule PubquizGameTest do
       |> Game.answer_question("Hans", 1)
       |> Game.summary
 
-    assert %{answers: ["a11", "a12", "a13", "a14"], chapter: "ch2", leaderboard: %{"Hans" => 1}, question: "q1"} == summary
+    assert %{answers: ["a11", "a12", "a13", "a14"], chapter: %{index: 1, title: "ch2"}, leaderboard: %{"Hans" => 1}, question: "q1"} == summary
   end
 end

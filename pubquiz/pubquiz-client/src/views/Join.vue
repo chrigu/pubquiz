@@ -6,7 +6,7 @@
       <input id="player" type="text" v-model="player" />
       <label for="game-name">Game name</label>
       <input id="game-name" type="text" v-model="gameName" />
-      <button type="button" @click="joinGame">Start game</button>
+      <button type="button" @click="joinGame">Join game</button>
     </div>
   </div>
 </template>

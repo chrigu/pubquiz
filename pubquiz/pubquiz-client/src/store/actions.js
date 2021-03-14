@@ -1,4 +1,5 @@
-import {joinChannel, fetchChapterTitle, startGame, nextQuestion} from '@/ws'
+import router from '../router'
+import { joinChannel, startGame, nextQuestion } from '@/ws'
 
 export default {
   setGameName ({ commit, state }, gameName) {
@@ -53,20 +54,20 @@ export default {
   summary ({ state, dispatch }, summary) {
     if (summary.over) {
       dispatch('setGameState', 'gameOver')
-    } else if (state.chapter.index !== summary.current_chapter) {
-      dispatch('setChapter', summary.current_chapter)
+    } else if (state.chapter.index !== summary.chapter.index) {
+      dispatch('setChapter', summary.chapter)
       dispatch('setGameState', 'chapterTitle')
-    } else if (summary.answers[0] && summary.answers[0].hasOwnProperty('correct')) { // check if has correct answer
+      router.push({ name: 'chapterTitle', params: { id: `${state.gameName}` } })
+    } else if (summary.answers[0] && 'correct' in summary.answers[0]) { // check if has correct answer
       dispatch('setGameState', 'showSolution')
     } else if (state.question.index !== summary.current_question) {
       dispatch('setQuestion', summary.current_question)
       dispatch('setGameState', 'showQuestion')
     }// check if has new question index
-
   },
   next_question ({ dispatch }) {
     dispatch('setGameState', 'showQuestion')
-  },
+  }
   // showSolution ({ state, dispatch }) {
   //   // check if q left
   //   // check if game done

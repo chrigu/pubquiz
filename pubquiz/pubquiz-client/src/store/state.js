@@ -13,5 +13,5 @@ export default {
     index: -1,
     text: '',
     answers: []
-  },
+  }
 }

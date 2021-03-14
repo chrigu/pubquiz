@@ -12,7 +12,7 @@
 
 <script>
 // @ is an alias to /src
-import axios from 'axios'
+// import axios from 'axios'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -24,17 +24,18 @@ export default {
     ...mapGetters(['player', 'players', 'gameName'])
   },
   methods: {
-    ...mapActions(['initGame']),
+    ...mapActions(['initGame', 'adminStartGame']),
     startGame (event) {
-      axios.post('http://localhost:4000/api/start', {
-        name: this.name
-      }).then(function ({ status, data }) {
-        console.log(data, status)
-        // feed state
-        // start game
-      }).catch(function (error) {
-        console.log(error)
-      })
+      this.adminStartGame()
+      // axios.post('http://localhost:4000/api/start', {
+      //   name: this.name
+      // }).then(function ({ status, data }) {
+      //   console.log(data, status)
+      //   // feed state
+      //   // start game
+      // }).catch(function (error) {
+      //   console.log(error)
+      // })
     }
   }
 }
