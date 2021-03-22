@@ -9,6 +9,9 @@ export default {
     index: -1,
     title: ''
   },
-  question: '',
+  question: {
+    index: -1,
+    text: ''
+  },
   answers: []
 }

@@ -29,6 +29,9 @@ export default {
   setQuestion ({ commit }, question) {
     commit('setQuestion', question)
   },
+  setAnswers ({ commit }, answers) {
+    commit('setAnswers', answers)
+  },
   joinGameChannel ({ state, dispatch }) {
     joinChannel(dispatch, state.token, state.gameName)
   },
@@ -61,7 +64,7 @@ export default {
       router.push({ name: 'chapterTitle', params: { id: state.gameName } })
     } else if (summary.answers[0] && typeof summary.answers[0] !== 'string') { // check if has correct answer
       dispatch('setGameState', 'showSolution')
-    } else if (state.gameState === 'chapterTitle' && (state.question !== summary.question)) {
+    } else if (state.gameState === 'chapterTitle' && (state.question.index !== summary.question.index)) {
       dispatch('setQuestion', summary.question)
       dispatch('setAnswers', summary.answers)
       dispatch('setGameState', 'showQuestion')

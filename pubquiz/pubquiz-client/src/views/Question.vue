@@ -1,6 +1,6 @@
 <template>
   <div class="question">
-    <h1>{{question}}</h1>
+    <h1>{{question.text}}</h1>
     <ul>
       <li v-for="answer in answers" :key="answer">{{answer}}</li>
     </ul>

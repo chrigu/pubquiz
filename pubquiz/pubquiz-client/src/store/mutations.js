@@ -25,5 +25,8 @@ export default {
   },
   setQuestion (state, payload) {
     state.question = payload
+  },
+  setAnswers (state, payload) {
+    state.answers = payload
   }
 }
