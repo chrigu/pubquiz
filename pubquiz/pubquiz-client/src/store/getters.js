@@ -6,5 +6,7 @@ export default {
   isAdmin: state => state.isAdmin,
   token: state => state.token,
   chapter: state => state.chapter,
-  chapterTitle: state => state.chapter.title
+  chapterTitle: state => state.chapter.title,
+  question: state => state.question,
+  answers: state => state.answers
 }

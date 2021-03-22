@@ -37,9 +37,9 @@ export function joinChannel (dispatch, authToken, gameName) {
     dispatch('set', title)
   })
 
-  channel.on('question', question => {
-    console.log('question', question)
-    dispatch('setQuestion', question)
+  channel.on('question', summary => {
+    console.log('question', summary)
+    dispatch('summary', summary)
   })
 
   channel.on('solution', question => {
@@ -70,7 +70,12 @@ export function fetchChapterTitle () {
 }
 
 export function fetchQuestion () {
-  channel.push('next_question')
+  channel.push('next_question', {})
+}
+
+export function showQuestion () {
+  console.log(channel)
+  channel.push('question', {})
 }
 //
 // export function fetchSolution () {

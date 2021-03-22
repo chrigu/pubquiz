@@ -1,5 +1,5 @@
 import router from '../router'
-import { joinChannel, startGame, nextQuestion } from '@/ws'
+import { joinChannel, startGame, showQuestion } from '@/ws'
 
 export default {
   setGameName ({ commit, state }, gameName) {
@@ -20,8 +20,8 @@ export default {
   setAdmin ({ commit, state }, isAdmin) {
     commit('setAdmin', isAdmin)
   },
-  setGameState ({ commit }, gameName) {
-    commit('setGameName', gameName)
+  setGameState ({ commit }, gameState) {
+    commit('setGameState', gameState)
   },
   setChapter ({ commit }, chapter) {
     commit('setChapter', chapter)
@@ -49,24 +49,28 @@ export default {
     startGame()
   },
   adminNextQuestion () {
-    nextQuestion()
+    // nextQuestion()
   },
   summary ({ state, dispatch }, summary) {
+    console.log('summary', summary)
     if (summary.over) {
       dispatch('setGameState', 'gameOver')
     } else if (state.chapter.index !== summary.chapter.index) {
       dispatch('setChapter', summary.chapter)
       dispatch('setGameState', 'chapterTitle')
-      router.push({ name: 'chapterTitle', params: { id: `${state.gameName}` } })
-    } else if (summary.answers[0] && 'correct' in summary.answers[0]) { // check if has correct answer
+      router.push({ name: 'chapterTitle', params: { id: state.gameName } })
+    } else if (summary.answers[0] && typeof summary.answers[0] !== 'string') { // check if has correct answer
       dispatch('setGameState', 'showSolution')
-    } else if (state.question.index !== summary.current_question) {
-      dispatch('setQuestion', summary.current_question)
+    } else if (state.gameState === 'chapterTitle' && (state.question !== summary.question)) {
+      dispatch('setQuestion', summary.question)
+      dispatch('setAnswers', summary.answers)
       dispatch('setGameState', 'showQuestion')
+      router.push({ name: 'question', params: { id: state.gameName } })
     }// check if has new question index
   },
-  next_question ({ dispatch }) {
-    dispatch('setGameState', 'showQuestion')
+  nextQuestion () {
+    console.log('showQuestion')
+    showQuestion()
   }
   // showSolution ({ state, dispatch }) {
   //   // check if q left

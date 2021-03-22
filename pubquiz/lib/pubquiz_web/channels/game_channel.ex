@@ -32,7 +32,6 @@ defmodule PubquizWeb.GameChannel do
 
   def handle_in("start_game", _obj, socket) do
     "games:" <> game_name = socket.topic
-    IO.puts(game_name)
 
     # check if admin
 
@@ -57,6 +56,24 @@ defmodule PubquizWeb.GameChannel do
       pid when is_pid(pid) ->
         summary = GameServer.next_step(game_name)
         broadcast!(socket, "summary", summary)
+
+        {:noreply, socket}
+
+      nil ->
+        {:reply, {:error, %{reason: "Game does not exist"}}, socket}
+    end
+  end
+
+
+  def handle_in("question", _obj, socket) do
+    "games:" <> game_name = socket.topic
+
+    # check if admin
+
+    case GameServer.game_pid(game_name) do
+      pid when is_pid(pid) ->
+        summary = GameServer.question(game_name)
+        broadcast!(socket, "question", summary)
 
         {:noreply, socket}
 

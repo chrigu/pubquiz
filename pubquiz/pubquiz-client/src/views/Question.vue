@@ -1,7 +1,9 @@
 <template>
-  <div class="chaptertitle">
-    <h1>{{chapterTitle}}</h1>
-    <button v-if="isAdmin" type="button" @click="nextQuestion()">Start</button>
+  <div class="question">
+    <h1>{{question}}</h1>
+    <ul>
+      <li v-for="answer in answers" :key="answer">{{answer}}</li>
+    </ul>
   </div>
 </template>
 
@@ -9,9 +11,9 @@
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: 'ChapterTitle',
+  name: 'Question',
   computed: {
-    ...mapGetters(['chapterTitle', 'isAdmin'])
+    ...mapGetters(['question', 'isAdmin', 'answers'])
   },
   methods: {
     ...mapActions(['nextQuestion'])

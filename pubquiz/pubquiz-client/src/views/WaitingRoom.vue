@@ -6,7 +6,7 @@
       <li v-for="playerName in players" :key="playerName">{{playerName}}</li>
     </ul>
 
-    <button type="button" @click="startGame">Start</button>
+    <button v-if="isAdmin" type="button" @click="startGame">Start</button>
   </div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
     return {}
   },
   computed: {
-    ...mapGetters(['player', 'players', 'gameName'])
+    ...mapGetters(['player', 'players', 'gameName', 'isAdmin'])
   },
   methods: {
     ...mapActions(['initGame', 'adminStartGame']),

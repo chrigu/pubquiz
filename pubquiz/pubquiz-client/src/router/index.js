@@ -40,6 +40,11 @@ const routes = [
     path: '/game/:id/chaptertitle',
     name: 'chapterTitle',
     component: () => import(/* webpackChunkName: "chaptertitle" */ '../views/ChapterTitle.vue')
+  },
+  {
+    path: '/game/:id/question',
+    name: 'question',
+    component: () => import(/* webpackChunkName: "chaptertitle" */ '../views/Question.vue')
   }
 ]
 
