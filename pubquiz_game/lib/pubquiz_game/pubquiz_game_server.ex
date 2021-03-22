@@ -37,8 +37,8 @@ defmodule PubquizGame.GameServer do
     GenServer.call(via_tuple(game_name), {:answer_question, answer, player})
   end
 
- def next_step(game_name) do
-    GenServer.call(via_tuple(game_name), :next_step)
+ def next_question(game_name) do
+    GenServer.call(via_tuple(game_name), :next_question)
   end
 
  def chapter_title(game_name) do
@@ -96,10 +96,10 @@ defmodule PubquizGame.GameServer do
     {:reply, new_game, new_game, @timeout}
   end
 
-  def handle_call(:next_step, _from, game) do
+  def handle_call(:next_question, _from, game) do
 
     # check state & answers, check user = admin
-    reply = PubquizGame.Game.next_step(game)
+    reply = PubquizGame.Game.next_question(game)
     {:reply, elem(reply, 0), elem(reply, 1), @timeout}
   end
 

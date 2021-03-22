@@ -47,14 +47,14 @@ defmodule PubquizWeb.GameChannel do
     end
   end
 
-  def handle_in("next_step", socket) do
+  def handle_in("next_question", socket) do
     "games:" <> game_name = socket.topic
 
     # check if admin
 
     case GameServer.game_pid(game_name) do
       pid when is_pid(pid) ->
-        summary = GameServer.next_step(game_name)
+        summary = GameServer.next_question(game_name)
         broadcast!(socket, "summary", summary)
 
         {:noreply, socket}

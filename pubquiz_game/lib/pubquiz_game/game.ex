@@ -30,7 +30,7 @@ defmodule PubquizGame.Game do
          {:ok, json} <- Poison.decode(body, keys: :atoms, as: %Game{chapters: [%Chapter{questions: [%Question{answers: [%Answer{}]}]}]}), do: {:ok, json}
   end
 
-  def next_step(game) do
+  def next_question(game) do
     game
       |> update_question_index
       |> update_chapter_index

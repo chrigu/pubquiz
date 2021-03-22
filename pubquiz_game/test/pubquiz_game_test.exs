@@ -16,7 +16,7 @@ defmodule PubquizGameTest do
 
   test "goes to next question" do
     next = get_game()
-      |> Game.next_step
+      |> Game.next_question
 
     next_game = elem(next, 1)
 
@@ -28,7 +28,7 @@ defmodule PubquizGameTest do
     game = get_game()
     next = game
       |> Map.replace!(:current_question, 2)
-      |> Game.next_step
+      |> Game.next_question
 
     next_game = elem(next, 1)
 
@@ -42,7 +42,7 @@ defmodule PubquizGameTest do
     next = game
       |> Map.replace!(:current_question, 1)
       |> Map.replace!(:current_chapter, 1)
-      |> Game.next_step
+      |> Game.next_question
 
     next_game = elem(next, 1)
 
