@@ -1,9 +1,10 @@
 <template>
   <div class="question">
     <h1>{{question.text}}</h1>
-    <ul>
-      <li v-for="answer in answers" :key="answer">{{answer}}</li>
-    </ul>
+    <div v-for="(answer, index) in answers" :key="answer">
+      <input type="radio" :id="`answer-${1}`" name="drone" :value="index">
+      <label :id="`answer-${1}`">{{answer}}</label>
+    </div>
   </div>
 </template>
 

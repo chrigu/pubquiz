@@ -52,6 +52,7 @@ defmodule PubquizGameTest do
 
   test "player answers question correct" do
     next_game = get_game()
+      |> Game.set_allow_answers(true)
       |> Map.replace!(:current_chapter, 1)
       |> Map.replace!(:current_question, 0)
       |> Game.answer_question("Hans", 1)
@@ -65,6 +66,7 @@ defmodule PubquizGameTest do
 
   test "player answers question wrong" do
     next_game = get_game()
+      |> Game.set_allow_answers(true)
       |> Map.replace!(:current_chapter, 0)
       |> Map.replace!(:current_question, 0)
       |> Game.answer_question("Hans", 1)
@@ -74,6 +76,16 @@ defmodule PubquizGameTest do
     |> Enum.at(next_game.current_question)
 
     assert %{"Hans" => false} == score
+  end
+
+  test "answers not allowed" do
+    game = get_game()
+    next_game = game
+      |> Map.replace!(:current_chapter, 0)
+      |> Map.replace!(:current_question, 0)
+      |> Game.answer_question("Hans", 1)
+
+    assert next_game == game
   end
 
   test "calculates score for chapter with empty score" do
@@ -112,6 +124,7 @@ defmodule PubquizGameTest do
     summary = get_game()
       |> Map.replace!(:current_chapter, 1)
       |> Map.replace!(:current_question, 0)
+      |> Game.set_allow_answers(true)
       |> Game.answer_question("Hans", 1)
       |> Game.summary
 
@@ -120,4 +133,16 @@ defmodule PubquizGameTest do
              leaderboard: %{"Hans" => 1},
              question: %{index: 0, text: "q1"}} == summary
   end
+
+#  test "allow answers" do
+#    summary = get_game()
+#      |> Game.set_allow_answers(true)
+#      |> Game.summary
+#
+#    assert %{answers: ["a11", "a12", "a13", "a14"],
+#             chapter: %{index: 0, title: "ch1"},
+#             leaderboard: %{"Hans" => 1},
+#             question: %{index: 0, text: "q1"},
+#             allow_answers: true} == summary
+#  end
 end

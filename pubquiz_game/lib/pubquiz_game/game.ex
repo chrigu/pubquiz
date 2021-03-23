@@ -10,7 +10,7 @@ defmodule PubquizGame.Game do
   @filename "../../data/pubquiz.json"
 
   # @enforce_keys [:scores]
-  defstruct chapters: nil, history: [], current_chapter: 0, current_question: 0, over: false
+  defstruct chapters: nil, history: [], current_chapter: 0, current_question: 0, over: false, allow_answers: false
 
   @doc """
   Creates a new Game.
@@ -36,6 +36,10 @@ defmodule PubquizGame.Game do
       |> update_chapter_index
   end
 
+  def set_allow_answers(game, allow_answers) do
+    %Game{game | allow_answers: allow_answers}
+  end
+
   defp update_question_index(game) do
     current_chapter = Enum.at(game.chapters, game.current_chapter)
     case Utils.is_last(current_chapter.questions, game.current_question) do
@@ -56,8 +60,15 @@ defmodule PubquizGame.Game do
   end
 
   def answer_question(game, player, answer) do
-    is_answer_correct(game, answer)
-      |> update_history(player, game)
+    case game.allow_answers do
+      true ->
+        is_answer_correct(game, answer)
+          |> update_history(player, game)
+
+      false ->
+        game
+    end
+
   end
 
   defp is_answer_correct(game, answer) do
