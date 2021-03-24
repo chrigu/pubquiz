@@ -9,9 +9,9 @@ test('initalize game', async () => {
   }
 
   const initGame = {
-    player: "Hans",
-    gameName: "gameBla1",
-    token: "tokenbla3"
+    player: 'Hans',
+    gameName: 'gameBla1',
+    token: 'tokeBla2'
   }
 
   await actions.initGame(store, initGame)
@@ -33,9 +33,9 @@ test('join game', async () => {
   }
 
   const joinGame = {
-    player: "Hans",
-    gameName: "gameBla1",
-    token: "tokenbla3"
+    player: 'Hans',
+    gameName: 'gameBla1',
+    token: 'tokeBla2'
   }
 
   await actions.join(store, joinGame)
@@ -88,6 +88,7 @@ test('new chapter', async () => {
   const store = {
     dispatch: dispatchMock,
     state: {
+      gameName: 'Hansli-23',
       chapter: {
         index: 0
       }
@@ -95,13 +96,20 @@ test('new chapter', async () => {
   }
 
   const summary = {
-    current_chapter: 1
+    chapter: {
+      title: 'Chapter 1',
+      index: 1
+    },
+    answers: [
+      'How many?',
+      'Why?'
+    ]
   }
 
   await actions.summary(store, summary)
 
   expect(dispatchMock.mock.calls.length).toEqual(2)
-  expect(dispatchMock.mock.calls[0]).toEqual(['setChapter', summary.current_chapter])
+  expect(dispatchMock.mock.calls[0]).toEqual(['setChapter', summary.chapter])
   expect(dispatchMock.mock.calls[1]).toEqual(['setGameState', 'chapterTitle'])
 
 })
@@ -122,11 +130,20 @@ test('show answers', async () => {
   }
 
   const summary = {
-    current_chapter: 0,
-    current_question: 0,
-    answers: [{
-      correct: true
-    }]
+    chapter: {
+      title: 'Chapter 1',
+      index: 0
+    },
+    question: {
+      index: -1,
+      text: ''
+    },
+    answers: [
+      {
+        text: 'Hello',
+        correct: true
+      }
+    ]
   }
 
   await actions.summary(store, summary)
@@ -142,25 +159,37 @@ test('next question', async () => {
   const store = {
     dispatch: dispatchMock,
     state: {
+      gameState: 'chapterTitle',
       chapter: {
-        index: 0
+        index: 1
       },
       question: {
-        index: 0
+        index: 2
       }
     }
   }
 
   const summary = {
-    current_question: 1,
-    current_chapter: 0,
-    answers: {}
+    chapter: {
+      title: 'Chapter 1',
+      index: 1
+    },
+    question: {
+      index: 0,
+      text: 'Hello'
+    },
+    answers: [
+      'Why?',
+      'Where',
+      'Who?'
+    ]
   }
 
   await actions.summary(store, summary)
 
-  expect(dispatchMock.mock.calls.length).toEqual(2)
-  expect(dispatchMock.mock.calls[0]).toEqual(['setQuestion', summary.current_question])
-  expect(dispatchMock.mock.calls[1]).toEqual(['setGameState', 'showQuestion'])
+  expect(dispatchMock.mock.calls.length).toEqual(3)
+  expect(dispatchMock.mock.calls[0]).toEqual(['setQuestion', summary.question])
+  expect(dispatchMock.mock.calls[1]).toEqual(['setAnswers', summary.answers])
+  expect(dispatchMock.mock.calls[2]).toEqual(['setGameState', 'showQuestion'])
 
 })

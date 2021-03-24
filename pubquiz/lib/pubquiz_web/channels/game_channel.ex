@@ -19,7 +19,6 @@ defmodule PubquizWeb.GameChannel do
     summary = GameServer.summary(game_name)
 
     push(socket, "game_summary", summary)
-
     push(socket, "presence_state", Presence.list(socket))
 
     {:ok, _} =

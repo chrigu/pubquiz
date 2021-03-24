@@ -70,6 +70,7 @@ export default {
       dispatch('setGameState', 'showQuestion')
       router.push({ name: 'question', params: { id: state.gameName } })
     }// check if has new question index
+
   },
   nextQuestion () {
     console.log('showQuestion')
