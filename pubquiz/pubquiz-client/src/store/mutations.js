@@ -28,5 +28,8 @@ export default {
   },
   setAnswers (state, payload) {
     state.answers = payload
+  },
+  setTimer (state, payload) {
+    state.timer = payload
   }
 }

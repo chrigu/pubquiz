@@ -13,5 +13,6 @@ export default {
     index: -1,
     text: ''
   },
-  answers: []
+  answers: [],
+  timer: 10
 }

@@ -45,6 +45,10 @@ defmodule PubquizGame.GameServer do
     GenServer.call(via_tuple(game_name), :chapter_title)
   end
 
+ def allow_answers(game_name, allow_answers) do
+    GenServer.call(via_tuple(game_name), {:allow_answers, allow_answers})
+  end
+
   @doc """
   Returns a tuple used to register and lookup a game server process by name.
   """
@@ -119,6 +123,11 @@ defmodule PubquizGame.GameServer do
   def handle_call(:solution, _from, game) do
     summary = PubquizGame.Game.summary_with_solution(game)
     {:reply, summary, game, @timeout}
+  end
+
+  def handle_call({:allow_answers, allow_answers}, _from, game) do
+    new_game = PubquizGame.Game.set_allow_answers(game, allow_answers)
+    {:reply, new_game.allow_answers, new_game, @timeout}
   end
 
   def handle_info(:timeout, game) do

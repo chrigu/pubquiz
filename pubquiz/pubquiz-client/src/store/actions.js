@@ -32,6 +32,9 @@ export default {
   setAnswers ({ commit }, answers) {
     commit('setAnswers', answers)
   },
+  setTimer ({ commit }, timer) {
+    commit('setTimer', timer)
+  },
   joinGameChannel ({ state, dispatch }) {
     joinChannel(dispatch, state.token, state.gameName)
   },
@@ -70,7 +73,6 @@ export default {
       dispatch('setGameState', 'showQuestion')
       router.push({ name: 'question', params: { id: state.gameName } })
     }// check if has new question index
-
   },
   nextQuestion () {
     console.log('showQuestion')

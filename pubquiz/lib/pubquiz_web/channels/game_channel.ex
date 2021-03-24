@@ -74,11 +74,11 @@ defmodule PubquizWeb.GameChannel do
         summary = GameServer.question(game_name)
         broadcast!(socket, "question", summary)
 
-        # allow answers
-        # do n times wait (recurrsion)
-        # send time update
-        # disallow answers
-        # send next state
+        GameServer.allow_answers(game_name, true)
+        PubquizWeb.Timer.startTimer(10, 1000, fn(count) -> broadcast!(socket, "timer", %{count: count}) end)
+        GameServer.allow_answers(game_name, false)
+        summary_with_solutions = GameServer.summary(game_name)
+        broadcast!(socket, "solutions", summary)
 
         {:noreply, socket}
 

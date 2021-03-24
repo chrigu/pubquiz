@@ -8,5 +8,6 @@ export default {
   chapter: state => state.chapter,
   chapterTitle: state => state.chapter.title,
   question: state => state.question,
-  answers: state => state.answers
+  answers: state => state.answers,
+  timer: state => state.timer
 }
