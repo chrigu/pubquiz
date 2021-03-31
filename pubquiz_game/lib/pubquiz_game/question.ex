@@ -1,6 +1,7 @@
 defmodule PubquizGame.Question do
   
   # @enforce_keys [:question, :answers]
+  @derive Jason.Encoder
   defstruct [:question, :answers]
 
   @doc """

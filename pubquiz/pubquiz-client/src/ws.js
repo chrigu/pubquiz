@@ -82,10 +82,11 @@ export function showQuestion () {
   console.log(channel)
   channel.push('question', {})
 }
-//
-// export function fetchSolution () {
-//   channel.push("solution")
-// }
+
+export function answerQuestion (answerIndex) {
+  console.log(answerIndex)
+  channel.push('answer_question', { answer_index: answerIndex })
+}
 
 function toPlayers (presences) {
   const listBy = (name, { metas: [first, ...rest] }) => {

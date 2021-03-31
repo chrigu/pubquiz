@@ -74,11 +74,28 @@ defmodule PubquizWeb.GameChannel do
         summary = GameServer.question(game_name)
         broadcast!(socket, "question", summary)
 
-        GameServer.allow_answers(game_name, true)
-        PubquizWeb.Timer.startTimer(10, 1000, fn(count) -> broadcast!(socket, "timer", %{count: count}) end)
-        GameServer.allow_answers(game_name, false)
-        summary_with_solutions = GameServer.summary(game_name)
-        broadcast!(socket, "solutions", summary)
+        #GameServer.allow_answers(game_name, true)
+        #PubquizWeb.Timer.startTimer(10, 1000, fn(count) -> broadcast!(socket, "timer", %{count: count}) end)
+        #GameServer.allow_answers(game_name, false)
+        #summary_with_solutions = GameServer.show_solution(game_name)
+        #broadcast!(socket, "summary", summary_with_solutions)
+
+        {:noreply, socket}
+
+      nil ->
+        {:reply, {:error, %{reason: "Game does not exist"}}, socket}
+    end
+  end
+
+  def handle_in("answer_question", %{"answer_index" => answer_index}, socket) do
+    "games:" <> game_name = socket.topic
+    # check if admin
+
+    case GameServer.game_pid(game_name) do
+      pid when is_pid(pid) ->
+        summary = GameServer.answer_question(game_name, answer_index, current_player(socket))
+#       IO.inspect(summary)
+        broadcast!(socket, "summary", summary)
 
         {:noreply, socket}
 

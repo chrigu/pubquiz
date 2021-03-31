@@ -10,6 +10,7 @@ defmodule PubquizGame.Game do
   @filename "../../data/pubquiz.json"
 
   # @enforce_keys [:scores]
+  @derive Jason.Encoder
   defstruct chapters: nil, history: [], current_chapter: 0, current_question: 0, over: false, allow_answers: false
 
   @doc """
@@ -64,9 +65,11 @@ defmodule PubquizGame.Game do
       true ->
         is_answer_correct(game, answer)
           |> update_history(player, game)
+          |> summary
 
       false ->
         game
+          |> summary
     end
 
   end

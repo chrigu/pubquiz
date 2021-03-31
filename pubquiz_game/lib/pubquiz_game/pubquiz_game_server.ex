@@ -29,6 +29,10 @@ defmodule PubquizGame.GameServer do
     GenServer.call(via_tuple(game_name), :game_summary)
   end
 
+  def summary_with_solutions(game_name) do
+    GenServer.call(via_tuple(game_name), :solution)
+  end
+
   def question(game_name) do
     GenServer.call(via_tuple(game_name), :question)
   end
@@ -47,6 +51,10 @@ defmodule PubquizGame.GameServer do
 
  def allow_answers(game_name, allow_answers) do
     GenServer.call(via_tuple(game_name), {:allow_answers, allow_answers})
+  end
+
+ def show_solution(game_name) do
+    GenServer.call(via_tuple(game_name), :solution)
   end
 
   @doc """
@@ -114,6 +122,12 @@ defmodule PubquizGame.GameServer do
     {:reply, chapter_title, game, @timeout}
   end
 
+  def handle_call(:summary_with_solutions, _from, game) do
+    # check state & answers, check user = admin
+    summary_with_solutions = PubquizGame.Game.summary_with_solutions(game)
+    {:reply, summary_with_solutions, game, @timeout}
+  end
+
   def handle_call(:question, _from, game) do
     # check state & answers, check user = admin
     summary = PubquizGame.Game.summary(game)
@@ -121,7 +135,7 @@ defmodule PubquizGame.GameServer do
   end
 
   def handle_call(:solution, _from, game) do
-    summary = PubquizGame.Game.summary_with_solution(game)
+    summary = PubquizGame.Game.summary_with_solutions(game)
     {:reply, summary, game, @timeout}
   end
 
