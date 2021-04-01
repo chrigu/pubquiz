@@ -65,11 +65,11 @@ defmodule PubquizGame.Game do
       true ->
         is_answer_correct(game, answer)
           |> update_history(player, game)
-          |> summary
+#          |> summary
 
       false ->
         game
-          |> summary
+#          |> summary
     end
 
   end

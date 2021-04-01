@@ -64,6 +64,20 @@ defmodule PubquizWeb.GameChannelTest do
     end
   end
 
+  describe "show question" do
+    test "send question command", context do
+      {:ok, _reply, _socket} =
+        subscribe_and_join(context.socket, GameChannel, context.topic, %{})
+
+      ref = push socket, "question", %{}
+    end
+
+    test "returns error if game does not exist", context do
+      assert {:error, %{reason: "Game does not exist"}} =
+        subscribe_and_join(context.socket, GameChannel, "games:9999", %{})
+    end
+  end
+
 #  test "ping replies with status ok", %{socket: socket} do
 #    ref = push socket, "ping", %{"hello" => "there"}
 #    assert_reply ref, :ok, %{"hello" => "there"}

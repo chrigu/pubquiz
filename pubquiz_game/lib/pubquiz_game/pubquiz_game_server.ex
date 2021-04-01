@@ -105,7 +105,7 @@ defmodule PubquizGame.GameServer do
 
 #    :ets.insert(:games_table, {my_game_name(), new_game})
 
-    {:reply, new_game, new_game, @timeout}
+    {:reply, PubquizGame.Game.summary(game), new_game, @timeout}
   end
 
   def handle_call(:next_question, _from, game) do
