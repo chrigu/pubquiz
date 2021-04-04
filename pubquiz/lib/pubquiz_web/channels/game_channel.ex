@@ -46,7 +46,7 @@ defmodule PubquizWeb.GameChannel do
     end
   end
 
-  def handle_in("next_question", socket) do
+  def handle_in("next_question", _obj, socket) do
     "games:" <> game_name = socket.topic
 
     # check if admin
@@ -54,6 +54,7 @@ defmodule PubquizWeb.GameChannel do
     case GameServer.game_pid(game_name) do
       pid when is_pid(pid) ->
         summary = GameServer.next_question(game_name)
+        IO.inspect(summary)
         broadcast!(socket, "summary", summary)
 
         {:noreply, socket}
@@ -116,7 +117,7 @@ defmodule PubquizWeb.GameChannel do
   end
 
   defp timer_ended(game_name, socket) do
-    PubquizWeb.Timer.startTimer(10, 1000, fn(count) -> broadcast!(socket, "timer", %{count: count}) end)
+    PubquizWeb.Timer.startTimer(5, 1000, fn(count) -> broadcast!(socket, "timer", %{count: count}) end)
     GameServer.allow_answers(game_name, false)
     summary_with_solutions = GameServer.show_solution(game_name)
     broadcast!(socket, "summary", summary_with_solutions)

@@ -1,7 +1,7 @@
 <template>
   <div class="chaptertitle">
     <h1>{{chapterTitle}}</h1>
-    <button v-if="isAdmin" type="button" @click="nextQuestion()">Start</button>
+    <button v-if="isAdmin" type="button" @click="showQuestion()">Start</button>
   </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
     ...mapGetters(['chapterTitle', 'isAdmin'])
   },
   methods: {
-    ...mapActions(['nextQuestion'])
+    ...mapActions(['showQuestion'])
   }
 }
 </script>

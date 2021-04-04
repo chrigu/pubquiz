@@ -74,12 +74,11 @@ export function fetchChapterTitle () {
   channel.push('chapter_title')
 }
 
-export function fetchQuestion () {
+export function nextQuestion () {
   channel.push('next_question', {})
 }
 
 export function showQuestion () {
-  console.log(channel)
   channel.push('question', {})
 }
 

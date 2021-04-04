@@ -1,5 +1,5 @@
 import router from '../router'
-import { joinChannel, startGame, showQuestion, answerQuestion } from '@/ws'
+import { joinChannel, startGame, nextQuestion, answerQuestion, showQuestion } from '@/ws'
 
 export default {
   setGameName ({ commit, state }, gameName) {
@@ -64,19 +64,26 @@ export default {
     } else if (state.chapter.index !== summary.chapter.index) {
       dispatch('setChapter', summary.chapter)
       dispatch('setGameState', 'chapterTitle')
+      console.log('chaptert', summary)
       router.push({ name: 'chapterTitle', params: { id: state.gameName } })
     } else if (summary.answers[0] && typeof summary.answers[0] !== 'string') { // check if has correct answer
+      console.log('showanswers', summary)
       dispatch('setGameState', 'showSolution')
       dispatch('setAnswers', summary.answers)
       router.push({ name: 'solution', params: { id: state.gameName } })
-    } else if (state.gameState === 'chapterTitle' && (state.question.index !== summary.question.index)) {
+    } else if (state.gameState === 'chapterTitle' || (state.question.index !== summary.question.index)) {
+      console.log('showq', summary)
       dispatch('setQuestion', summary.question)
       dispatch('setAnswers', summary.answers)
       dispatch('setGameState', 'showQuestion')
       router.push({ name: 'question', params: { id: state.gameName } })
     }// check if has new question index
   },
-  nextQuestion () {
+  nextQuestion ({ state }) {
+    console.log('nextQuestion')
+    nextQuestion()
+  },
+  showQuestion ({ state }) {
     console.log('showQuestion')
     showQuestion()
   },
