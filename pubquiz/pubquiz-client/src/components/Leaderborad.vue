@@ -1,7 +1,7 @@
 <template>
  <div>
    <ol>
-     <li v-for="player in leaderboard" :key="player.name">{{player.name}} {{player.score}}</li>
+     <li v-for="player in sortedPlayerNames" :key="player">{{player}} {{this.players[player]}}</li>
    </ol>
  </div>
 </template>
@@ -11,15 +11,16 @@ export default {
   name: 'Leaderborad.vue',
   data () {
     return {
-      players: []
+      players: {}
     }
   },
   computed: {
-    leaderboard () {
-      return this.players.sort(({ aScore }, { bScore }) => {
-        if (aScore > bScore) {
+    sortedPlayerNames () {
+      const playerNames = Object.keys(this.players)
+      return playerNames.sort((aName, bName) => {
+        if (this.players[aName] > this.players[bName]) {
           return 1
-        } else if (aScore < bScore) {
+        } else if (this.players[aName] < this.players[bName]) {
           return -1
         }
         return 0

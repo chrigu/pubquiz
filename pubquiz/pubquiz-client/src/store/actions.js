@@ -67,6 +67,8 @@ export default {
       router.push({ name: 'chapterTitle', params: { id: state.gameName } })
     } else if (summary.answers[0] && typeof summary.answers[0] !== 'string') { // check if has correct answer
       dispatch('setGameState', 'showSolution')
+      dispatch('setAnswers', summary.answers)
+      router.push({ name: 'solution', params: { id: state.gameName } })
     } else if (state.gameState === 'chapterTitle' && (state.question.index !== summary.question.index)) {
       dispatch('setQuestion', summary.question)
       dispatch('setAnswers', summary.answers)
