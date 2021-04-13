@@ -28,10 +28,6 @@ export function joinChannel (dispatch, authToken, gameName) {
     dispatch('summary', summary)
   })
 
-  channel.on('next_question', summary => {
-    dispatch('showChapter')
-  })
-
   channel.on('chapter', summary => {
     console.log('chapter', summary)
     dispatch('showChapter', summary)

@@ -1,12 +1,14 @@
 <template>
  <div>
    <ol>
-     <li v-for="player in sortedPlayerNames" :key="player">{{player}} {{this.players[player]}}</li>
+     <li v-for="player in leaderboard" :key="player">{{player}} {{this.leaderboard[player]}}</li>
    </ol>
  </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Leaderborad.vue',
   data () {
@@ -15,18 +17,8 @@ export default {
     }
   },
   computed: {
-    sortedPlayerNames () {
-      const playerNames = Object.keys(this.players)
-      return playerNames.sort((aName, bName) => {
-        if (this.players[aName] > this.players[bName]) {
-          return 1
-        } else if (this.players[aName] < this.players[bName]) {
-          return -1
-        }
-        return 0
-      })
-    }
-  }
+    ...mapGetters(['leaderboard'])
+  },
 }
 </script>
 

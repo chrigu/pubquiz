@@ -54,7 +54,6 @@ defmodule PubquizWeb.GameChannel do
     case GameServer.game_pid(game_name) do
       pid when is_pid(pid) ->
         summary = GameServer.next_question(game_name)
-        IO.inspect(summary)
 
         some(summary, socket, game_name)
 
@@ -98,16 +97,6 @@ defmodule PubquizWeb.GameChannel do
       nil ->
         {:reply, {:error, %{reason: "Game does not exist"}}, socket}
     end
-  end
-
-
-  def handle_in("new_chat_message", %{"body" => body}, socket) do
-    broadcast!(socket, "new_chat_message", %{
-      name: current_player(socket).name,
-      body: body
-    })
-
-    {:noreply, socket}
   end
 
   defp current_player(socket) do

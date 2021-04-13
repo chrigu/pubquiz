@@ -14,5 +14,6 @@ export default {
     text: ''
   },
   answers: [],
-  timer: 10
+  timer: 10,
+  leaderboard: {}
 }

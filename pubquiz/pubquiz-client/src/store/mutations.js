@@ -31,5 +31,8 @@ export default {
   },
   setTimer (state, payload) {
     state.timer = payload
+  },
+  setLeaderboard (state, payload) {
+    state.leaderboard = payload
   }
 }

@@ -21,9 +21,9 @@ defmodule PubquizGame.GameServer do
                          name: via_tuple(game_name))
   end
 
-  def game_score(game_name) do
-    GenServer.call(via_tuple(game_name), :game_score)
-  end
+#  def game_score(game_name) do
+#    GenServer.call(via_tuple(game_name), :game_score)
+#  end
 
   def summary(game_name) do
     GenServer.call(via_tuple(game_name), :game_summary)
@@ -45,9 +45,9 @@ defmodule PubquizGame.GameServer do
     GenServer.call(via_tuple(game_name), :next_question)
   end
 
- def chapter_title(game_name) do
-    GenServer.call(via_tuple(game_name), :chapter_title)
-  end
+# def chapter_title(game_name) do
+#    GenServer.call(via_tuple(game_name), :chapter_title)
+#  end
 
  def allow_answers(game_name, allow_answers) do
     GenServer.call(via_tuple(game_name), {:allow_answers, allow_answers})
