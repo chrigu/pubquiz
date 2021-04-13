@@ -1,5 +1,5 @@
 import router from '../router'
-import { joinChannel, startGame, nextQuestion, answerQuestion, showQuestion } from '@/ws'
+import { joinChannel, startGame, answerQuestion, showQuestion, nextQuestion } from '@/ws'
 
 export default {
   setGameName ({ commit, state }, gameName) {
@@ -89,6 +89,12 @@ export default {
   },
   answer (state, questionIndex) {
     answerQuestion(questionIndex)
+  },
+  showChapter ({ state, dispatch }, summary) {
+    dispatch('setChapter', summary.chapter)
+    dispatch('setGameState', 'chapterTitle')
+    console.log('chaptert', summary)
+    router.push({ name: 'chapterTitle', params: { id: state.gameName } })
   }
   // showSolution ({ state, dispatch }) {
   //   // check if q left

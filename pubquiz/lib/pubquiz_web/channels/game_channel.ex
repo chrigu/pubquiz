@@ -55,7 +55,8 @@ defmodule PubquizWeb.GameChannel do
       pid when is_pid(pid) ->
         summary = GameServer.next_question(game_name)
         IO.inspect(summary)
-        broadcast!(socket, "summary", summary)
+
+        some(summary, socket, game_name)
 
         {:noreply, socket}
 
@@ -73,10 +74,7 @@ defmodule PubquizWeb.GameChannel do
     case GameServer.game_pid(game_name) do
       pid when is_pid(pid) ->
         summary = GameServer.question(game_name)
-        broadcast!(socket, "question", summary)
-
-        GameServer.allow_answers(game_name, true)
-        Task.start(fn() -> timer_ended(game_name, socket) end)
+        some({:same_chapter, summary}, socket, game_name)
 
         {:noreply, socket}
 
@@ -93,7 +91,7 @@ defmodule PubquizWeb.GameChannel do
       pid when is_pid(pid) ->
         summary = GameServer.answer_question(game_name, answer_index, current_player(socket))
 #       IO.inspect(summary)
-        broadcast!(socket, "summary", summary)
+#        some(summary, socket, game_name)
 
         {:noreply, socket}
 
@@ -123,6 +121,21 @@ defmodule PubquizWeb.GameChannel do
     broadcast!(socket, "summary", summary_with_solutions)
 
     {:noreply, socket}
+  end
+
+  defp some({:same_chapter, summary}, socket, game_name) do
+      broadcast!(socket, "question", summary)
+
+      GameServer.allow_answers(game_name, true)
+      Task.start(fn() -> timer_ended(game_name, socket) end)
+  end
+
+  defp some({:new_chapter, summary}, socket, _game_name) do
+    broadcast!(socket, "chapter", summary)
+  end
+
+  defp some({:game_over, summary}, socket, _game_name) do
+    broadcast!(socket, "gameover", summary)
   end
 
 end

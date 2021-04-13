@@ -111,8 +111,9 @@ defmodule PubquizGame.GameServer do
   def handle_call(:next_question, _from, game) do
 
     # check state & answers, check user = admin
-    new_game = PubquizGame.Game.next_question(game)
-    {:reply, PubquizGame.Game.summary(new_game), new_game, @timeout}
+    {state, new_game} = PubquizGame.Game.next_question(game)
+    response = {state, PubquizGame.Game.summary(new_game)}
+    {:reply, response, new_game, @timeout}
   end
 
   def handle_call(:game_summary, _from, game) do

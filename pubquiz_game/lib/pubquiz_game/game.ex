@@ -50,13 +50,13 @@ defmodule PubquizGame.Game do
   end
     
   defp update_chapter_index({:other_section_done, game}) do
-    game
+    {:same_chapter, game}
   end
 
   defp update_chapter_index({:last_section_done, game}) do
     case Utils.is_last(game.chapters, game.current_chapter) do
-      true -> %Game{game | over: true}
-      false -> %Game{game | current_chapter: game.current_chapter + 1}
+      true -> {:game_over, %Game{game | over: true}}
+      false -> {:new_chapter, %Game{game | current_chapter: game.current_chapter + 1}}
     end
   end
 
