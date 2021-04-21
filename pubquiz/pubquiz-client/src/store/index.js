@@ -4,10 +4,11 @@ import actions from './actions'
 import getters from './getters'
 import mutations from './mutations'
 import state from './state'
+import { createStore } from 'vuex-extensions'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+export default createStore(Vuex.Store, {
   state,
   mutations,
   getters,

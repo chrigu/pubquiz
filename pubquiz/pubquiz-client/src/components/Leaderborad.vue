@@ -1,7 +1,8 @@
 <template>
  <div>
+   <h3>Leaderboard</h3>
    <ol>
-     <li v-for="player in leaderboard" :key="player">{{player}} {{this.leaderboard[player]}}</li>
+     <li v-for="player in leaderboard" :key="player.name">{{player.name}} {{player.score}}</li>
    </ol>
  </div>
 </template>
@@ -18,7 +19,7 @@ export default {
   },
   computed: {
     ...mapGetters(['leaderboard'])
-  },
+  }
 }
 </script>
 

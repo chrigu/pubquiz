@@ -31,7 +31,7 @@ defmodule PubquizWeb.GameChannel do
 
   def handle_in("start_game", _obj, socket) do
     "games:" <> game_name = socket.topic
-
+    IO.inspect(socket)
     # check if admin
 
     case GameServer.game_pid(game_name) do

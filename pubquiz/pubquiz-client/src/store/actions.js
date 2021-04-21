@@ -35,6 +35,9 @@ export default {
   setTimer ({ commit }, timer) {
     commit('setTimer', timer)
   },
+  setLeaderboard ({ commit }, leaderboard) {
+    commit('setLeaderboard', leaderboard)
+  },
   joinGameChannel ({ state, dispatch }) {
     joinChannel(dispatch, state.token, state.gameName)
   },
@@ -70,6 +73,7 @@ export default {
       console.log('showanswers', summary)
       dispatch('setGameState', 'showSolution')
       dispatch('setAnswers', summary.answers)
+      dispatch('setLeaderboard', summary.leaderboard)
       router.push({ name: 'solution', params: { id: state.gameName } })
     } else if (state.gameState === 'chapterTitle' || (state.question.index !== summary.question.index)) {
       console.log('showq', summary)

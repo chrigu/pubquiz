@@ -11,14 +11,17 @@
     <div v-if="isAdmin">
       <button @click="nextQuestion">Next Question</button>
     </div>
+    <Leaderborad />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import Leaderborad from '@/components/Leaderborad'
 
 export default {
   name: 'Solution',
+  components: { Leaderborad },
   computed: {
     ...mapGetters(['question', 'isAdmin', 'answers'])
   },

@@ -33,6 +33,7 @@ export default {
     state.timer = payload
   },
   setLeaderboard (state, payload) {
+    console.log('setLeaderboard', payload)
     state.leaderboard = payload
   }
 }

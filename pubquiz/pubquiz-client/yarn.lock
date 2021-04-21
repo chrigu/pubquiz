@@ -10338,6 +10338,11 @@
   "resolved" "https://registry.yarnpkg.com/vue/-/vue-2.6.12.tgz"
   "version" "2.6.12"
 
+"vuex-extensions@^1.1.5":
+  "integrity" "sha512-1Jfi8o6coel3jj20k6SaEtinddzS0jEG41lyyWmodAorXoN85AzuYa4oou71e99B6V+Y+gSVUysa3yHVhWpTrQ=="
+  "resolved" "https://registry.npmjs.org/vuex-extensions/-/vuex-extensions-1.1.5.tgz"
+  "version" "1.1.5"
+
 "vuex@^3.4.0":
   "integrity" "sha512-ETW44IqCgBpVomy520DT5jf8n0zoCac+sxWnn+hMe/CzaSejb/eVw2YToiXYX+Ex/AuHHia28vWTq4goAexFbw=="
   "resolved" "https://registry.yarnpkg.com/vuex/-/vuex-3.6.2.tgz"

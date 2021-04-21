@@ -11,14 +11,17 @@ export default {
   answers: state => state.answers,
   timer: state => state.timer,
   leaderboard: state => {
-    const playerNames = Object.keys(state.players)
-    return playerNames.sort((aName, bName) => {
+    const playerNames = Object.keys(state.leaderboard)
+    console.log('names', state.players, playerNames)
+    const some = playerNames.sort((aName, bName) => {
       if (state.leaderboard[aName] > state.leaderboard[bName]) {
         return 1
       } else if (state.leaderboard[aName] < state.leaderboard[bName]) {
         return -1
       }
       return 0
-    })
+    }).map(name => ({ name, score: state.leaderboard[name] }))
+    console.log('leaderboard', some, state.players)
+    return some
   }
 }
