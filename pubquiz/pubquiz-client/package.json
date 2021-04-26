@@ -12,8 +12,10 @@
     "axios": "^0.21.0",
     "core-js": "^3.6.5",
     "phoenix": "file:../deps/phoenix/assets",
+    "tailwindscss": "^0.3.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
+    "vue-tailwind": "^2.2.1",
     "vuex": "^3.4.0",
     "vuex-extensions": "^1.1.5"
   },
