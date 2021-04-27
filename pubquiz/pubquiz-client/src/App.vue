@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
+  <div id="app" class="px-8 py-5">
+    <div id="nav" class="mb-5">
+      <router-link to="/">New Game</router-link>
     </div>
     <router-view/>
   </div>

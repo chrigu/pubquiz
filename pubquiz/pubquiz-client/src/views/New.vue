@@ -3,8 +3,11 @@
     <h1>Start a new game</h1>
     <div>
       <label for="name">Name</label>
-      <input id="name" type="text" v-model="player" />
-      <button type="button" @click="createGame">Start game</button>
+      <t-input type="text" v-model="player" />
+      <button
+        type="button"
+        class="mt-5 rounded bg-green-800 hover:bg-green-600 px-5 py-3 text-white"
+        @click="createGame">Start game</button>
     </div>
   </div>
 </template>

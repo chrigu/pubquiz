@@ -1,9 +1,11 @@
 <template>
   <div class="home">
-    <h1 class="m-10">Welcome to the Pubquiz</h1>
+    <h1 class="">Welcome to the Pubquiz</h1>
     <div>
-      <router-link to="/new">Start new game</router-link>
-      <router-link to="/join">Join existing game</router-link>
+      <ul>
+        <li class="mb-5"><router-link to="/new" class="text-indigo-800  hover:text-indigo-500">Start new game</router-link></li>
+        <li><router-link to="/join" class="text-indigo-800 hover:text-indigo-500">Join existing game</router-link></li>
+      </ul>
     </div>
   </div>
 </template>

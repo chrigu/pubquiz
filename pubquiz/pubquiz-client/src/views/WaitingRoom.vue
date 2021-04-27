@@ -2,17 +2,20 @@
   <div class="waiting-room">
     <h1>Waiting for players {{gameName}}</h1>
     <p>Hi {{player}}, we're waiting for other players</p>
-    <ul class="players">
-      <li v-for="playerName in players" :key="playerName">{{playerName}}</li>
+    <ul v-if="hasOtherPlayers" class="players list-disc my-5 pl-5">
+      <li v-for="playerName in playersWithoutMe" :key="playerName">{{playerName}}</li>
     </ul>
+    <p class="mt-5" v-else>No other players</p>
 
-    <button v-if="isAdmin" type="button" @click="startGame">Start</button>
+    <button
+      class="mt-5 rounded bg-green-800 hover:bg-green-600 px-5 py-3 text-white"
+      v-if="isAdmin"
+      type="button"
+      @click="startGame">Start</button>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-// import axios from 'axios'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -21,21 +24,21 @@ export default {
     return {}
   },
   computed: {
-    ...mapGetters(['player', 'players', 'gameName', 'isAdmin'])
+    ...mapGetters(['player', 'players', 'gameName', 'isAdmin']),
+    playersWithoutMe () {
+      return this.otherPlayers()
+    },
+    hasOtherPlayers () {
+      return this.otherPlayers().length > 0
+    }
   },
   methods: {
     ...mapActions(['initGame', 'adminStartGame']),
     startGame (event) {
       this.adminStartGame()
-      // axios.post('http://localhost:4000/api/start', {
-      //   name: this.name
-      // }).then(function ({ status, data }) {
-      //   console.log(data, status)
-      //   // feed state
-      //   // start game
-      // }).catch(function (error) {
-      //   console.log(error)
-      // })
+    },
+    otherPlayers () {
+      return this.players.filter(playerName => this.player !== playerName)
     }
   }
 }
