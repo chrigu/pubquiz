@@ -4,12 +4,12 @@
     <ul>
       <li v-for="answer in answers"
           :key="answer.text"
-          :class="{'correct': answer.correct}">
+          :class="{'bg-green-100': answer.correct}">
         {{answer.text}}
       </li>
     </ul>
     <div v-if="isAdmin">
-      <button @click="nextQuestion">Next Question</button>
+      <button class="button" @click="nextQuestion">Next Question</button>
     </div>
     <Leaderborad />
   </div>

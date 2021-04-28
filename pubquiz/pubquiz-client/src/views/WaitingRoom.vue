@@ -6,7 +6,6 @@
       <li v-for="playerName in playersWithoutMe" :key="playerName">{{playerName}}</li>
     </ul>
     <p class="mt-5" v-else>No other players</p>
-
     <button
       class="mt-5 rounded bg-green-800 hover:bg-green-600 px-5 py-3 text-white"
       v-if="isAdmin"

@@ -2,9 +2,6 @@ export default {
   setPlayer (state, payload) {
     state.player = payload
   },
-  updatePlayers (state, payload) {
-    state.players = [...state.players, payload]
-  },
   setPlayers (state, payload) {
     state.players = payload
   },

@@ -3,10 +3,10 @@
     <h1>Join an existing game</h1>
     <div>
       <label for="player">Name</label>
-      <input id="player" type="text" v-model="player" />
+      <t-input id="player" type="text" v-model="player" />
       <label for="game-name">Game name</label>
-      <input id="game-name" type="text" v-model="gameName" />
-      <button type="button" @click="joinGame">Join game</button>
+      <t-input id="game-name" type="text" v-model="gameName" />
+      <button type="button" class="button" @click="joinGame">Join game</button>
     </div>
   </div>
 </template>

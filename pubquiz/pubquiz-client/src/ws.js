@@ -19,10 +19,6 @@ export function joinChannel (dispatch, authToken, gameName) {
     .receive('error', ({ reason }) => console.log('failed join', reason))
     .receive('timeout', () => console.log('Networking issue. Still waiting...'))
 
-  channel.on('game_summary', summary => {
-    dispatch('setPlayers', summary)
-  })
-
   channel.on('summary', summary => {
     console.log('summary', summary)
     dispatch('summary', summary)

@@ -5,7 +5,7 @@ import store from './store'
 import VueTailwind from 'vue-tailwind'
 import {
   TInput,
-  TTextarea
+  TRadio
 } from 'vue-tailwind/dist/components'
 
 import './assets/styles/index.css'
@@ -21,15 +21,17 @@ const settings = {
   //     {propToOverride2}: {newDefaultValue2}
   //   }
   // }
-  't-input': {
-    component: TInput,
+  't-radio': {
+    component: TRadio,
     props: {
-      classes: 'border-2 block w-full rounded text-gray-800'
-      // ...More settings
+      classes: {
+        input: 'text-blue-500 transition duration-100 ease-in-out border-gray-300 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 focus:ring-offset-0  disabled:opacity-50 disabled:cursor-not-allowed transition duration-150 ease-in-out'
+      }
+      // Variants and fixed classes in the same `object` format ...
     }
   },
-  't-textarea': {
-    component: TTextarea,
+  't-input': {
+    component: TInput,
     props: {
       classes: 'border-2 block w-full rounded text-gray-800'
       // ...More settings

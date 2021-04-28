@@ -41,16 +41,3 @@ defmodule PubquizWeb.ApiController do
     Phoenix.Token.sign(conn, "player_auth", current_player.name)
   end
 end
-
-#    game_name = BingoHall.HaikuName.generate()
-#    size = String.to_integer(size)
-#
-#    case GameSupervisor.start_game(game_name, size) do
-#      {:ok, _game_pid} ->
-#        redirect(conn, to: game_path(conn, :show, game_name))
-#
-#      {:error, _error} ->
-#        conn
-#        |> put_flash(:error, "Unable to start game!")
-#        |> redirect(to: game_path(conn, :new))
-#    end

@@ -9,4 +9,8 @@
   h2 {
     @apply text-xl mb-3;
   }
+
+  .button {
+    @apply mt-5 rounded bg-green-800 hover:bg-green-600 px-5 py-3 text-white;
+  }
 }

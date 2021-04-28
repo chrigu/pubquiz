@@ -1,7 +1,8 @@
 <template>
   <div class="chaptertitle">
+    <h2>Kapitel:</h2>
     <h1>{{chapterTitle}}</h1>
-    <button v-if="isAdmin" type="button" @click="showQuestion()">Start</button>
+    <button class="button" v-if="isAdmin" type="button" @click="showQuestion()">Start</button>
   </div>
 </template>
 

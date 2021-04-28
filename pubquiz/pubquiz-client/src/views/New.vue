@@ -6,7 +6,7 @@
       <t-input type="text" v-model="player" />
       <button
         type="button"
-        class="mt-5 rounded bg-green-800 hover:bg-green-600 px-5 py-3 text-white"
+        class="button"
         @click="createGame">Start game</button>
     </div>
   </div>

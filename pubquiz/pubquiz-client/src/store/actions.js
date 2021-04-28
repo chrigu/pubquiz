@@ -11,9 +11,6 @@ export default {
   setPlayers ({ commit, state }, players) {
     commit('setPlayers', players)
   },
-  addPlayer ({ commit, state }, player) {
-    commit('updatePlayers', player)
-  },
   setToken ({ commit, state }, token) {
     commit('setToken', token)
   },
@@ -67,7 +64,7 @@ export default {
     } else if (state.chapter.index !== summary.chapter.index) {
       dispatch('setChapter', summary.chapter)
       dispatch('setGameState', 'chapterTitle')
-      console.log('chaptert', summary)
+      console.log('chapter', summary)
       router.push({ name: 'chapterTitle', params: { id: state.gameName } })
     } else if (summary.answers[0] && typeof summary.answers[0] !== 'string') { // check if has correct answer
       console.log('showanswers', summary)
@@ -76,7 +73,7 @@ export default {
       dispatch('setLeaderboard', summary.leaderboard)
       router.push({ name: 'solution', params: { id: state.gameName } })
     } else if (state.gameState === 'chapterTitle' || (state.question.index !== summary.question.index)) {
-      console.log('showq', summary)
+      console.log('show', summary)
       dispatch('setQuestion', summary.question)
       dispatch('setAnswers', summary.answers)
       dispatch('setGameState', 'showQuestion')

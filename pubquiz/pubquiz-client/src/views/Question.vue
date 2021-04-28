@@ -2,17 +2,16 @@
   <div class="question">
     <h1>{{question.text}}</h1>
     <p>{{timer}}</p>
-    <div v-for="(answer, index) in answers" :key="answer">
-      <input type="radio"
-             class="answer"
+    <label v-for="(answer, index) in answers" :key="answer" class="block">
+      <t-radio class="answer"
              :id="`answer-${1}`"
-             name="drone"
+             name="options"
              :value="index"
              :disabled="answered"
              :class="{'answer--selected': answer}"
-             @click="answerQuestion(index)">
-      <label :id="`answer-${1}`">{{answer}}</label>
-    </div>
+             @click="answerQuestion(index)" />
+      <span :id="`answer-${1}`">{{answer}}</span>
+    </label>
   </div>
 </template>
 
