@@ -2,7 +2,7 @@
     "chapters": [
         {
             "title": "Wer hat das gesagt?",
-            "timelimit": 15,
+            "timelimit": 10,
             "questions": [
                 {
                     "question": "«Kunst ist, aus Nichts etwas zu machen und es zu verkaufen.»?",

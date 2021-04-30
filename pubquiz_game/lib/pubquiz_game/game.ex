@@ -129,7 +129,7 @@ defmodule PubquizGame.Game do
   create summary from game
   """
   def summary_with_solutions(game) do
-    chapter = %{title: get_current_chapter(game).title, index: game.current_chapter}
+    chapter = %{title: get_current_chapter(game).title, index: game.current_chapter, timelimit: get_current_chapter(game).timelimit}
     question = %{text: get_current_question(game).question, index: game.current_question}
     answers = get_current_question(game).answers
     leaderboard = get_leaderboard(game)

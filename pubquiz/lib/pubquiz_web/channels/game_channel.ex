@@ -55,7 +55,7 @@ defmodule PubquizWeb.GameChannel do
       pid when is_pid(pid) ->
         summary = GameServer.next_question(game_name)
 
-        some(summary, socket, game_name)
+        handle_next_question(summary, socket, game_name)
 
         {:noreply, socket}
 
@@ -73,7 +73,7 @@ defmodule PubquizWeb.GameChannel do
     case GameServer.game_pid(game_name) do
       pid when is_pid(pid) ->
         summary = GameServer.question(game_name)
-        some({:same_chapter, summary}, socket, game_name)
+        handle_next_question({:same_chapter, summary}, socket, game_name)
 
         {:noreply, socket}
 
@@ -90,7 +90,7 @@ defmodule PubquizWeb.GameChannel do
       pid when is_pid(pid) ->
         summary = GameServer.answer_question(game_name, answer_index, current_player(socket))
 #       IO.inspect(summary)
-#        some(summary, socket, game_name)
+#        handle_next_question(summary, socket, game_name)
 
         {:noreply, socket}
 
@@ -103,8 +103,8 @@ defmodule PubquizWeb.GameChannel do
     socket.assigns.current_player
   end
 
-  defp timer_ended(game_name, socket) do
-    PubquizWeb.Timer.startTimer(5, 1000, fn(count) -> broadcast!(socket, "timer", %{count: count}) end)
+  defp start_timer(game_name, socket, timelimit) do
+    PubquizWeb.Timer.startTimer(timelimit, 1000, fn(count) -> broadcast!(socket, "timer", %{count: count}) end)
     GameServer.allow_answers(game_name, false)
     summary_with_solutions = GameServer.show_solution(game_name)
     broadcast!(socket, "summary", summary_with_solutions)
@@ -112,18 +112,18 @@ defmodule PubquizWeb.GameChannel do
     {:noreply, socket}
   end
 
-  defp some({:same_chapter, summary}, socket, game_name) do
+  defp handle_next_question({:same_chapter, summary}, socket, game_name) do
       broadcast!(socket, "question", summary)
 
       GameServer.allow_answers(game_name, true)
-      Task.start(fn() -> timer_ended(game_name, socket) end)
+      Task.start(fn() -> start_timer(game_name, socket, summary.chapter.timelimit) end)
   end
 
-  defp some({:new_chapter, summary}, socket, _game_name) do
+  defp handle_next_question({:new_chapter, summary}, socket, _game_name) do
     broadcast!(socket, "chapter", summary)
   end
 
-  defp some({:game_over, summary}, socket, _game_name) do
+  defp handle_next_question({:game_over, summary}, socket, _game_name) do
     broadcast!(socket, "gameover", summary)
   end
 

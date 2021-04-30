@@ -22,8 +22,8 @@ export default {
       })
     }, {})
     const playerNames = Object.keys(allPlayersWithScore)
-    console.log('names', state.players, playerNames)
-    const some = playerNames.sort((aName, bName) => {
+
+    const leaderboard = playerNames.sort((aName, bName) => {
       if (allPlayersWithScore[aName] > allPlayersWithScore[bName]) {
         return 1
       } else if (allPlayersWithScore[aName] < allPlayersWithScore[bName]) {
@@ -31,7 +31,7 @@ export default {
       }
       return 0
     }).map(name => ({ name, score: allPlayersWithScore[name] }))
-    console.log('leaderboard', some, state.players)
-    return some
+    console.log('leaderboard', leaderboard, state.players)
+    return leaderboard
   }
 }
