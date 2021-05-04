@@ -134,7 +134,7 @@ defmodule PubquizGame.Game do
     answers = get_current_question(game).answers
     leaderboard = get_leaderboard(game)
 
-    %{chapter: chapter, question: question, answers: answers, leaderboard: leaderboard}
+    %{chapter: chapter, question: question, answers: answers, leaderboard: leaderboard, over: game.over}
   end
 
   @doc """
@@ -146,6 +146,10 @@ defmodule PubquizGame.Game do
     |> Enum.map(&(&1.text))
 
     %{summary | :answers => answers_without_solution}
+  end
+
+  def summary(game = %Game{over: true}) do
+    game
   end
 
 end

@@ -61,6 +61,7 @@ export default {
     console.log('summary', summary)
     if (summary.over) {
       dispatch('setGameState', 'gameOver')
+      router.push({ name: 'gameOver', params: { id: state.gameName } })
     } else if (state.chapter.index !== summary.chapter.index) {
       dispatch('setChapter', summary.chapter)
       dispatch('setGameState', 'chapterTitle')

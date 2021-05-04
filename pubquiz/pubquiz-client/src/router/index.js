@@ -50,6 +50,11 @@ const routes = [
     path: '/game/:id/solution',
     name: 'solution',
     component: () => import(/* webpackChunkName: "solution" */ '../views/Solution.vue')
+  },
+  {
+    path: '/game/:id/gamover',
+    name: 'gameOver',
+    component: () => import(/* webpackChunkName: "solution" */ '../views/GameOver.vue')
   }
 ]
 

@@ -44,6 +44,11 @@ export function joinChannel (dispatch, authToken, gameName) {
     dispatch('setTimer', timer.count)
   })
 
+  channel.on('gameover', summary => {
+    console.log('gamover', summary)
+    dispatch('summary', summary)
+  })
+
   channel.on('presence_state', state => {
     presences = Presence.syncState(presences, state)
     const players = toPlayers(presences)
